@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }} - Electro Blog{% endblock %}
+
+{% block content %}
+    <!-- Header start -->
+    <div class="container-fluid page-header py-5">
+        <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">{{ post.title }}</h1>
+        <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+            <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'blog_list' %}">Blog</a></li>
+            <li class="breadcrumb-item active text-white">Article</li>
+        </ol>
+    </div>
+    <!-- Header End -->
+
+    <!-- Article Detail Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-8">
+                    <div class="mb-4">
+                        {% if post.image %}
+                            <img src="{{ post.image.url }}" class="img-fluid rounded w-100 mb-4" alt="{{ post.title }}" style="max-height: 450px; object-fit: cover;">
+                        {% endif %}
+                        <div class="d-flex mb-3 text-muted">
+                            <span class="me-4"><i class="fa fa-user text-primary me-2"></i>By {{ post.author }}</span>
+                            <span><i class="fa fa-calendar text-primary me-2"></i>{{ post.created_at|date:"F d, Y" }}</span>
+                        </div>
+                        <h2 class="mb-4">{{ post.title }}</h2>
+                        <div class="lh-lg text-dark">
+                            {{ post.content|linebreaks }}
+                        </div>
+                    </div>
+                    <hr class="my-5">
+                    <a href="{% url 'blog_list' %}" class="btn btn-primary rounded-pill py-2 px-4"><i class="fa fa-arrow-left me-2"></i> Back to Blog</a>
+                </div>
+                <div class="col-lg-4">
+                    <div class="bg-light p-4 rounded mb-4">
+                        <h4 class="mb-4 border-bottom pb-2">Recent Articles</h4>
+                        {% for rpost in recent_posts %}
+                        <div class="mb-3 pb-3 border-bottom">
+                            <a href="{% url 'blog_detail' post_id=rpost.id %}" class="h6 d-block mb-1 text-dark">{{ rpost.title }}</a>
+                            <small class="text-muted"><i class="fa fa-calendar me-1"></i>{{ rpost.created_at|date:"M d, Y" }}</small>
+                        </div>
+                        {% empty %}
+                        <p class="text-muted">No recent articles.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Article Detail End -->
+{% endblock %}

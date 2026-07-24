@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Coupons - Electro{% endblock %}
+
+{% block content %}
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">My Coupons</h1>
+    <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+        <li class="breadcrumb-item active text-white">My Coupons</li>
+    </ol>
+</div>
+
+<div class="container py-5">
+    <div class="row g-4">
+        <!-- Sidebar Navigation -->
+        <div class="col-lg-3">
+            <div class="card border-0 shadow-sm rounded-3 p-3 bg-white">
+                <div class="d-flex align-items-center mb-4 p-2 border-bottom">
+                    {% if request.user.is_authenticated %}
+                        <div class="bg-primary rounded-circle text-white d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; background-color: #f28b00 !important;">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold">{{ request.user.username }}</h6>
+                            <small class="text-muted">{{ request.user.email }}</small>
+                        </div>
+                    {% else %}
+                        <div class="bg-light rounded-circle text-muted d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                            <i class="fa fa-user-secret fa-lg"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold">Guest User</h6>
+                            <small class="text-muted">Not Signed In</small>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="nav flex-column nav-pills">
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'my_dashboard' %}" class="nav-link mb-2 text-dark rounded-pill py-2 px-3 bg-light"><i class="fa fa-tachometer-alt me-2"></i> My Dashboard</a>
+                        <a href="{% url 'my_orders' %}" class="nav-link mb-2 text-dark rounded-pill py-2 px-3 bg-light"><i class="fa fa-shopping-bag me-2"></i> My Orders</a>
+                    {% endif %}
+                    <a href="{% url 'my_coupons' %}" class="nav-link active mb-2 rounded-pill py-2 px-3 text-white" style="background-color: #f28b00; border-color: #f28b00;"><i class="fa fa-ticket-alt me-2"></i> My Coupons</a>
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'logout' %}" class="nav-link text-danger rounded-pill py-2 px-3 bg-light"><i class="fa fa-sign-out-alt me-2"></i> Logout</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            <div class="card border-0 shadow-sm rounded-3 p-4 bg-white">
+                <h4 class="fw-bold text-dark mb-4">Available Coupons</h4>
+                
+                <div class="row g-4">
+                    <!-- Coupon 1 -->
+                    <div class="col-md-6">
+                        <div class="card border-2 rounded-3 p-4 text-center h-100" style="border-style: dashed; border-color: #f28b00; background-color: #fffaf5;">
+                            <span class="badge bg-danger rounded-pill px-3 py-2 align-self-center mb-3">10% OFF</span>
+                            <h5 class="fw-bold text-dark mb-2">Welcome Discount</h5>
+                            <p class="text-muted mb-3">Get 10% off your next checkout order. Applied to all categories.</p>
+                            <div class="bg-light rounded p-2 mb-3 fw-bold fs-5 text-dark select-all" style="border: 1px dashed #ccc;">
+                                ELECTRO10
+                            </div>
+                            <small class="text-muted d-block mb-3">Expiry: December 31, 2026</small>
+                            <button class="btn btn-primary btn-sm rounded-pill px-4 text-white" style="background-color: #f28b00; border-color: #f28b00;" onclick="navigator.clipboard.writeText('ELECTRO10'); alert('Coupon code copied!');">Copy Code</button>
+                        </div>
+                    </div>
+
+                    <!-- Coupon 2 -->
+                    <div class="col-md-6">
+                        <div class="card border-2 rounded-3 p-4 text-center h-100" style="border-style: dashed; border-color: #f28b00; background-color: #fffaf5;">
+                            <span class="badge bg-danger rounded-pill px-3 py-2 align-self-center mb-3">KSh 15.00 OFF</span>
+                            <h5 class="fw-bold text-dark mb-2">Free Shipping Coupon</h5>
+                            <p class="text-muted mb-3">Get KSh 15.00 off standard flat rate shipping cost on checkouts.</p>
+                            <div class="bg-light rounded p-2 mb-3 fw-bold fs-5 text-dark select-all" style="border: 1px dashed #ccc;">
+                                FREESHIP15
+                            </div>
+                            <small class="text-muted d-block mb-3">Expiry: December 31, 2026</small>
+                            <button class="btn btn-primary btn-sm rounded-pill px-4 text-white" style="background-color: #f28b00; border-color: #f28b00;" onclick="navigator.clipboard.writeText('FREESHIP15'); alert('Coupon code copied!');">Copy Code</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

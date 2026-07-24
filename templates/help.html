@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Help & Support - Electro{% endblock %}
+
+{% block content %}
+<!-- Single Page Header start -->
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Help Center</h1>
+    <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+        <li class="breadcrumb-item active text-white">Help Center</li>
+    </ol>
+</div>
+<!-- Single Page Header End -->
+
+<!-- Help Search & Contact Options Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5 text-center" style="max-width: 900px;">
+        <h2 class="display-5 fw-bold text-dark mb-3">How can we help you today?</h2>
+        <p class="text-muted mb-5">Get instant support for your shopping, order tracking, and payment queries.</p>
+        
+        <div class="row g-4 justify-content-center">
+            <!-- Call Support -->
+            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="card border-0 shadow-sm rounded-3 p-4 bg-white text-center h-100 transition-hover">
+                    <div class="bg-light text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 70px; height: 70px; color: #f28b00 !important;">
+                        <i class="fa fa-phone-alt fa-2x"></i>
+                    </div>
+                    <h4 class="fw-bold text-dark mb-3">Call Support</h4>
+                    <p class="text-muted mb-4 small">Speak directly with one of our customer care representatives.</p>
+                    <a href="tel:+254712345678" class="btn btn-primary rounded-pill px-4 py-2 text-white fw-bold mt-auto" style="background-color: #f28b00; border-color: #f28b00;">
+                        <i class="fa fa-phone-alt me-2"></i>Call Us
+                    </a>
+                </div>
+            </div>
+            
+            <!-- WhatsApp Support -->
+            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="card border-0 shadow-sm rounded-3 p-4 bg-white text-center h-100 transition-hover">
+                    <div class="bg-light text-success rounded-circle d-inline-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 70px; height: 70px; color: #25d366 !important;">
+                        <i class="fab fa-whatsapp fa-2x"></i>
+                    </div>
+                    <h4 class="fw-bold text-dark mb-3">WhatsApp Support</h4>
+                    <p class="text-muted mb-4 small">Chat with us on WhatsApp for fast, friendly text support.</p>
+                    <a href="https://wa.me/254712345678" target="_blank" class="btn btn-success rounded-pill px-4 py-2 text-white fw-bold mt-auto" style="background-color: #25d366; border-color: #25d366;">
+                        <i class="fab fa-whatsapp me-2"></i>WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Email Support (Mail Us) -->
+            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="card border-0 shadow-sm rounded-3 p-4 bg-white text-center h-100 transition-hover">
+                    <div class="bg-light text-info rounded-circle d-inline-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 70px; height: 70px; color: #0dcaf0 !important;">
+                        <i class="fa fa-envelope fa-2x"></i>
+                    </div>
+                    <h4 class="fw-bold text-dark mb-3">Mail Us</h4>
+                    <p class="text-muted mb-4 small">Email our support team directly for written queries.</p>
+                    <a href="mailto:info@example.com" class="btn btn-info rounded-pill px-4 py-2 text-white fw-bold mt-auto" style="background-color: #0dcaf0; border-color: #0dcaf0;">
+                        <i class="fa fa-envelope me-2"></i>Email Us
+                    </a>
+                </div>
+            </div>
+
+            <!-- Location/Address -->
+            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.4s">
+                <div class="card border-0 shadow-sm rounded-3 p-4 bg-white text-center h-100 transition-hover">
+                    <div class="bg-light text-danger rounded-circle d-inline-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 70px; height: 70px; color: #dc3545 !important;">
+                        <i class="fa fa-map-marker-alt fa-2x"></i>
+                    </div>
+                    <h4 class="fw-bold text-dark mb-3">Our Office</h4>
+                    <p class="text-muted mb-4 small">123 Street New York, USA. Feel free to visit our store.</p>
+                    <a href="https://maps.google.com" target="_blank" class="btn btn-danger rounded-pill px-4 py-2 text-white fw-bold mt-auto" style="background-color: #dc3545; border-color: #dc3545;">
+                        <i class="fa fa-map-marker-alt me-2"></i>Find Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Help Search & Contact Options End -->
+
+<!-- About Electro Services Start -->
+<div class="container-fluid featurs py-5" style="background-color: #f8f9fa;">
+    <div class="container py-5">
+        <h3 class="text-center fw-bold text-dark mb-5 display-6">About Electro Services</h3>
+        <div class="row g-4 border-top pt-5">
+            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="featurs-item text-center rounded bg-white p-4 h-100 shadow-sm">
+                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-4 mx-auto" style="width: 80px; height: 80px; background-color: #f28b00 !important;">
+                        <i class="fas fa-car-side fa-3x text-white"></i>
+                    </div>
+                    <div class="featurs-content text-center">
+                        <h5>Free Shipping</h5>
+                        <p class="mb-0 text-muted">Free on all orders over KSh 99</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="featurs-item text-center rounded bg-white p-4 h-100 shadow-sm">
+                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-4 mx-auto" style="width: 80px; height: 80px; background-color: #f28b00 !important;">
+                        <i class="User Shield fas fa-user-shield fa-3x text-white"></i>
+                    </div>
+                    <div class="featurs-content text-center">
+                        <h5>Security Payment</h5>
+                        <p class="mb-0 text-muted">100% secure payment methods</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="featurs-item text-center rounded bg-white p-4 h-100 shadow-sm">
+                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-4 mx-auto" style="width: 80px; height: 80px; background-color: #f28b00 !important;">
+                        <i class="fas fa-exchange-alt fa-3x text-white"></i>
+                    </div>
+                    <div class="featurs-content text-center">
+                        <h5>30 Day Return</h5>
+                        <p class="mb-0 text-muted">30 day money back guarantee</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="featurs-item text-center rounded bg-white p-4 h-100 shadow-sm">
+                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-4 mx-auto" style="width: 80px; height: 80px; background-color: #f28b00 !important;">
+                        <i class="fa fa-phone-alt fa-3x text-white"></i>
+                    </div>
+                    <div class="featurs-content text-center">
+                        <h5>24/7 Support</h5>
+                        <p class="mb-0 text-muted">Dedicated support anytime</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About Electro Services End -->
+{% endblock %}

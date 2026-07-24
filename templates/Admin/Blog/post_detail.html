@@ -1,0 +1,25 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="card border-0 shadow-sm p-4 bg-white">
+        <h2 class="fw-bold mb-2">{{ post.title }}</h2>
+        <p class="text-muted mb-4">By {{ post.author }} on {{ post.created_at|date:"F d, Y" }}</p>
+        
+        {% if post.image %}
+            <div class="mb-4 text-center">
+                <img src="{{ post.image.url }}" class="img-fluid rounded" style="max-height: 400px; object-fit: cover;">
+            </div>
+        {% endif %}
+        
+        <div class="post-content text-dark mb-4" style="line-height: 1.8;">
+            {{ post.content|linebreaks }}
+        </div>
+        
+        <div class="d-flex gap-2">
+            <a href="{% url 'update-post' post.pk %}" class="btn btn-warning rounded-pill px-4 text-white" style="background-color: #f28b00; border-color: #f28b00;">Edit Post</a>
+            <a href="{% url 'post-list' %}" class="btn btn-light border rounded-pill px-4 text-dark">Back to List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

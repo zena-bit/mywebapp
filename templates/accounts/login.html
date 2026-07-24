@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sign In - Electro{% endblock %}
+
+{% block content %}
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Sign In</h1>
+    <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+        <li class="breadcrumb-item active text-white">Sign In</li>
+    </ol>
+</div>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card border-0 shadow-lg rounded-3 p-4 p-sm-5 bg-white">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold text-dark mb-2">Welcome Back</h2>
+                    <p class="text-muted">Sign in to your Electro account</p>
+                </div>
+                
+                <form method="post" action="{% url 'login' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">
+                    {% csrf_token %}
+                    
+                    {% if form.errors %}
+                        <div class="alert alert-danger rounded-3" role="alert">
+                            Invalid username or password. Please try again.
+                        </div>
+                    {% endif %}
+                    
+                    <div class="mb-3">
+                        <label for="id_username" class="form-label text-dark fw-semibold">Username</label>
+                        <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username" class="form-control border p-3 rounded-pill" placeholder="Enter username">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="id_password" class="form-label text-dark fw-semibold">Password</label>
+                        <input type="password" name="password" autocomplete="current-password" required="" id="id_password" class="form-control border p-3 rounded-pill" placeholder="Enter password">
+                    </div>
+                    
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill py-3 text-uppercase fw-bold text-white shadow-sm" style="background-color: #f28b00; border-color: #f28b00;">Sign In</button>
+                    </div>
+                </form>
+                <div class="text-center mt-3">
+                    <p class="mb-0 text-muted">Don't have an account? <a href="{% url 'register' %}" class="fw-bold" style="color: #f28b00;">Register here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

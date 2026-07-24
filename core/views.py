@@ -1,25 +1,118 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import Product, Category
+from .forms import ProductForm, CategoryForm
 
-def index(request):
+def home(request):
     return render(request, 'index.html')
-
-def shop(request):
-    return render(request, 'shop.html')
-
-def single(request):
-    return render(request, 'single.html')
-
-def cart(request):
-    return render(request, 'cart.html')
-
-def checkout(request):
-    return render(request, 'cheackout.html')
 
 def contact(request):
     return render(request, 'contact.html')
 
-def bestsellers(request):
-    return render(request, 'bestseller.html')
+def help_center(request):
+    return render(request, 'help.html')
 
-def page_not_found(request):
-    return render(request, '404.html')
+# ============ CATEGORY CRUD ============
+
+def category_list(request):
+    categories = Category.objects.all()
+    return render(request, 'admin_panel/category_list.html', {
+        'categories': categories,
+        'page_title': 'Categories',
+    })
+
+@login_required
+def category_create(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Category created successfully!')
+            return redirect('category_list')
+    else:
+        form = CategoryForm()
+    return render(request, 'admin_panel/category_form.html', {
+        'form': form,
+        'page_title': 'Add Category',
+    })
+
+@login_required
+def category_update(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Category updated successfully!')
+            return redirect('category_list')
+    else:
+        form = CategoryForm(instance=category)
+    return render(request, 'admin_panel/category_form.html', {
+        'form': form,
+        'page_title': 'Edit Category',
+    })
+
+@login_required
+def category_delete(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    if request.method == 'POST':
+        category.delete()
+        messages.success(request, 'Category deleted successfully!')
+        return redirect('category_list')
+    return render(request, 'admin_panel/category_confirm_delete.html', {
+        'category': category,
+        'page_title': 'Delete Category',
+    })
+
+# ============ PRODUCT CRUD ============
+
+def product_list(request):
+    products = Product.objects.all()
+    return render(request, 'admin_panel/product_list.html', {
+        'products': products,
+        'page_title': 'Products',
+    })
+
+@login_required
+def product_create(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Product created successfully!')
+            return redirect('product_list')
+    else:
+        form = ProductForm()
+    return render(request, 'admin_panel/product_form.html', {
+        'form': form,
+        'page_title': 'Add Product',
+    })
+
+@login_required
+def product_update(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Product updated successfully!')
+            return redirect('product_list')
+    else:
+        form = ProductForm(instance=product)
+    return render(request, 'admin_panel/product_form.html', {
+        'form': form,
+        'page_title': 'Edit Product',
+    })
+
+@login_required
+def product_delete(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == 'POST':
+        product.delete()
+        messages.success(request, 'Product deleted successfully!')
+        return redirect('product_list')
+    return render(request, 'admin_panel/product_confirm_delete.html', {
+        'product': product,
+        'page_title': 'Delete Product',
+    })

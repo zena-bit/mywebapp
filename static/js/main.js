@@ -6,6 +6,7 @@
         setTimeout(function () {
             if ($('#spinner').length > 0) {
                 $('#spinner').removeClass('show');
+                $('#spinner').hide();
             }
         }, 1);
     };
@@ -96,8 +97,8 @@
         autoplay: true,
         smartSpeed: 1500,
         dots: true,
-        dotsData: true,
-        loop: true,
+        dotsData: false,
+        loop: false,
         items: 1,
         nav : true,
         navText : [

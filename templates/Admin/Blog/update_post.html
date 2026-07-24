@@ -1,0 +1,18 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="card border-0 shadow-sm p-4 bg-white">
+        <h2 class="fw-bold mb-4">Update Post</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form|crispy }}
+            <button class="btn btn-primary rounded-pill px-4 mt-3 text-white" style="background-color: #f28b00; border-color: #f28b00;">Update Post</button>
+            <a href="{% url 'post-list' %}" class="btn btn-light border rounded-pill px-4 mt-3 ms-2">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

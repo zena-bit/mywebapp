@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Blog - Electro{% endblock %}
+
+{% block content %}
+    <!-- Single Page Header start -->
+    <div class="container-fluid page-header py-5">
+        <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Blog & News</h1>
+        <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+            <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="breadcrumb-item active text-white">Blog</li>
+        </ol>
+    </div>
+    <!-- Single Page Header End -->
+
+    <!-- Blog Section Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+                <h1 class="display-5 text-capitalize mb-3">Latest <span class="text-primary">Blog & Articles</span></h1>
+                <p class="mb-0">Stay updated with our latest news, product reviews, tech guides, and industry insights.</p>
+            </div>
+            <div class="row g-4 justify-content-center">
+                {% for post in posts %}
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="blog-item bg-light rounded overflow-hidden shadow-sm h-100 d-flex flex-column">
+                        <div class="blog-img position-relative overflow-hidden">
+                            {% if post.image %}
+                                <img class="img-fluid w-100" src="{{ post.image.url }}" alt="{{ post.title }}" style="height: 230px; object-fit: cover;">
+                            {% else %}
+                                <img class="img-fluid w-100" src="{% static 'img/carousel-1.png' %}" alt="{{ post.title }}" style="height: 230px; object-fit: cover;">
+                            {% endif %}
+                            <div class="position-absolute top-0 start-0 bg-primary text-white rounded-end py-1 px-3 mt-3">
+                                {{ post.created_at|date:"M d, Y" }}
+                            </div>
+                        </div>
+                        <div class="p-4 d-flex flex-column flex-grow-1">
+                            <div class="d-flex mb-3 text-muted">
+                                <small class="me-3"><i class="fa fa-user text-primary me-2"></i>{{ post.author }}</small>
+                                <small><i class="fa fa-calendar text-primary me-2"></i>{{ post.created_at|date:"Y-m-d" }}</small>
+                            </div>
+                            <h4 class="mb-3"><a class="text-dark" href="{% url 'blog_detail' post_id=post.id %}">{{ post.title }}</a></h4>
+                            <p class="text-muted flex-grow-1">{{ post.content|truncatewords:25 }}</p>
+                            <a class="btn btn-outline-primary rounded-pill py-2 px-4 mt-auto align-self-start" href="{% url 'blog_detail' post_id=post.id %}">Read More <i class="fa fa-arrow-right ms-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center py-5">
+                    <p class="fs-4 text-muted">No blog posts available at the moment.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Blog Section End -->
+{% endblock %}

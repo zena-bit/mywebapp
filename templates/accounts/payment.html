@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Pay Order - Electro{% endblock %}
+
+{% block content %}
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Pay Order</h1>
+    <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'my_orders' %}">My Orders</a></li>
+        <li class="breadcrumb-item active text-white">Payment</li>
+    </ol>
+</div>
+
+<div class="container py-5">
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card border-0 shadow-lg rounded-3 p-4 p-sm-5 bg-white">
+                <div class="text-center mb-4">
+                    <div class="bg-light text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px; color: #f28b00 !important;">
+                        <i class="fa fa-mobile-alt fa-2x"></i>
+                    </div>
+                    <h2 class="fw-bold text-dark mb-2">M-Pesa Checkout</h2>
+                    <p class="text-muted">Initiate STK Push for Order #{{ order.id }}</p>
+                </div>
+                
+                <div class="bg-light rounded p-3 mb-4">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Order ID:</span>
+                        <strong class="text-dark">#{{ order.id }}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Total Amount:</span>
+                        <strong class="text-dark">KSh {{ order.total_price }}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted">Status:</span>
+                        <span class="badge bg-warning rounded-pill px-3 py-1">{{ order.get_status_display }}</span>
+                    </div>
+                </div>
+
+                <form method="post" action="{% url 'initiate_payment' order_id=order.id %}">
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        <label for="phone" class="form-label text-dark fw-semibold">M-Pesa Phone Number<sup>*</sup></label>
+                        <input type="tel" name="phone" id="phone" class="form-control rounded-pill p-3 border" placeholder="e.g. 0712345678 or 254712345678" required>
+                        <div class="form-text text-muted" style="font-size: 11px;">Enter the number that will receive the M-Pesa PIN prompt.</div>
+                    </div>
+                    
+                    <div class="d-grid mb-2">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill py-3 text-uppercase fw-bold text-white shadow-sm" style="background-color: #f28b00; border-color: #f28b00;">Send STK Push</button>
+                    </div>
+                    
+                    <div class="text-center">
+                        <a href="{% url 'my_orders' %}" class="btn btn-link text-muted fw-semibold text-decoration-none">Back to Orders</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

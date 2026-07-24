@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Orders - Electro{% endblock %}
+
+{% block content %}
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">My Orders</h1>
+    <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+        <li class="breadcrumb-item active text-white">My Orders</li>
+    </ol>
+</div>
+
+<div class="container py-5">
+    <div class="row g-4">
+        <!-- Sidebar Navigation -->
+        <div class="col-lg-3">
+            <div class="card border-0 shadow-sm rounded-3 p-3 bg-white">
+                <div class="d-flex align-items-center mb-4 p-2 border-bottom">
+                    <div class="bg-primary rounded-circle text-white d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; background-color: #f28b00 !important;">
+                        <i class="fa fa-user fa-lg"></i>
+                    </div>
+                    <div>
+                        <h6 class="mb-0 fw-bold">{{ request.user.username }}</h6>
+                        <small class="text-muted">{{ request.user.email }}</small>
+                    </div>
+                </div>
+                <div class="nav flex-column nav-pills">
+                    <a href="{% url 'my_dashboard' %}" class="nav-link mb-2 text-dark rounded-pill py-2 px-3 bg-light"><i class="fa fa-tachometer-alt me-2"></i> My Dashboard</a>
+                    <a href="{% url 'my_orders' %}" class="nav-link active mb-2 rounded-pill py-2 px-3 text-white" style="background-color: #f28b00; border-color: #f28b00;"><i class="fa fa-shopping-bag me-2"></i> My Orders</a>
+                    <a href="{% url 'my_coupons' %}" class="nav-link mb-2 text-dark rounded-pill py-2 px-3 bg-light"><i class="fa fa-ticket-alt me-2"></i> My Coupons</a>
+                    <a href="{% url 'logout' %}" class="nav-link text-danger rounded-pill py-2 px-3 bg-light"><i class="fa fa-sign-out-alt me-2"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            <div class="card border-0 shadow-sm rounded-3 p-4 bg-white">
+                <h4 class="fw-bold text-dark mb-4">Order History</h4>
+                
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col">Order ID</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <td><a href="{% url 'order_detail' order_code=order.order_code %}" class="fw-bold" style="color: #f28b00;">#{{ order.order_code|slice:":8" }}</a></td>
+                                <td>{{ order.created_at|date:"F d, Y" }}</td>
+                                <td>
+                                    <span class="badge rounded-pill {% if order.status == 'delivered' %}bg-success{% elif order.status == 'pending' %}bg-warning text-dark{% else %}bg-primary{% endif %}">
+                                        {{ order.get_status_display }}
+                                    </span>
+                                </td>
+                                <td>KSh {{ order.total_price }}</td>
+                                <td>
+                                    {% if order.status == 'pending' %}
+                                        <a href="{% url 'initiate_payment_page' order_id=order.id %}" class="btn btn-primary btn-sm rounded-pill px-3" style="background-color: #f28b00; border-color: #f28b00; color: white;">Pay Now</a>
+                                    {% else %}
+                                        <button class="btn btn-light btn-sm rounded-pill px-3" disabled>Completed</button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center py-5">
+                                    <p class="text-muted fs-5 mb-3">You haven't placed any orders yet.</p>
+                                    <a href="{% url 'shop' %}" class="btn btn-primary rounded-pill py-2 px-4 text-white" style="background-color: #f28b00; border-color: #f28b00;">Start Shopping</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

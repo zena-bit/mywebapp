@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-bc)fnv-14=74vn9r5p^yqae=f)3lw=jb^mbep)k=!$okcz00hh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,7 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'crispy_bootstrap5',
     'core',
+    'shop',
+    'blog',
+    'cart',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -62,8 +68,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-
                 'django.template.context_processors.media',
+                'core.context_processors.categories_processor',
+                'core.context_processors.cart_processor',
+                'core.context_processors.wishlist_processor',
             ],
         },
     },
@@ -107,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
@@ -133,3 +141,20 @@ from decouple import config
 
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
+
+# Authentication settings
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
+# Email settings (for password reset)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+from decouple import config
+
+MPESA_CONSUMER_KEY = config('MPESA_CONSUMER_KEY')
+MPESA_CONSUMER_SECRET = config('MPESA_CONSUMER_SECRET')
+MPESA_CALLBACK_URL = config('MPESA_CALLBACK_URL', default='https://your-domain.com/mpesa/callback/')
