@@ -113,15 +113,17 @@
         <!-- Quick Action Cards (Jumia-style) -->
         <div class="row g-3 mb-5 justify-content-center wow fadeInUp" data-wow-delay="0.15s">
             <div class="col-6 col-md-4 col-lg-2">
-                <div class="card border rounded-3 text-center p-3 h-100 quick-action-card" style="cursor:pointer;">
-                    <div class="mb-2">
-                        <i class="fas fa-box fa-2x" style="color:#f28b00;"></i>
+                <a href="{% url 'shop' %}" class="text-decoration-none d-block h-100">
+                    <div class="card border rounded-3 text-center p-3 h-100 quick-action-card" style="cursor:pointer;">
+                        <div class="mb-2">
+                            <i class="fas fa-box fa-2x" style="color:#f28b00;"></i>
+                        </div>
+                        <p class="mb-0 small fw-semibold text-dark">Place an Order</p>
                     </div>
-                    <p class="mb-0 small fw-semibold text-dark">Place an Order</p>
-                </div>
+                </a>
             </div>
             <div class="col-6 col-md-4 col-lg-2">
-                <div class="card border rounded-3 text-center p-3 h-100 quick-action-card" style="cursor:pointer;">
+                <div class="card border rounded-3 text-center p-3 h-100 quick-action-card faq-trigger" data-category="payments" data-faq-target="#pay1" style="cursor:pointer;">
                     <div class="mb-2">
                         <i class="fas fa-mobile-alt fa-2x" style="color:#f28b00;"></i>
                     </div>
@@ -129,15 +131,17 @@
                 </div>
             </div>
             <div class="col-6 col-md-4 col-lg-2">
-                <div class="card border rounded-3 text-center p-3 h-100 quick-action-card" style="cursor:pointer;">
-                    <div class="mb-2">
-                        <i class="fas fa-map-marker-alt fa-2x" style="color:#f28b00;"></i>
+                <a href="{% url 'my_orders' %}" class="text-decoration-none d-block h-100">
+                    <div class="card border rounded-3 text-center p-3 h-100 quick-action-card" style="cursor:pointer;">
+                        <div class="mb-2">
+                            <i class="fas fa-map-marker-alt fa-2x" style="color:#f28b00;"></i>
+                        </div>
+                        <p class="mb-0 small fw-semibold text-dark">Track Your Order</p>
                     </div>
-                    <p class="mb-0 small fw-semibold text-dark">Track Your Order</p>
-                </div>
+                </a>
             </div>
             <div class="col-6 col-md-4 col-lg-2">
-                <div class="card border rounded-3 text-center p-3 h-100 quick-action-card" style="cursor:pointer;">
+                <div class="card border rounded-3 text-center p-3 h-100 quick-action-card faq-trigger" data-category="orders" data-faq-target="#ord1" style="cursor:pointer;">
                     <div class="mb-2">
                         <i class="fas fa-times-circle fa-2x" style="color:#f28b00;"></i>
                     </div>
@@ -145,7 +149,7 @@
                 </div>
             </div>
             <div class="col-6 col-md-4 col-lg-2">
-                <div class="card border rounded-3 text-center p-3 h-100 quick-action-card" style="cursor:pointer;">
+                <div class="card border rounded-3 text-center p-3 h-100 quick-action-card faq-trigger" data-category="returns" data-faq-target="#ret1" style="cursor:pointer;">
                     <div class="mb-2">
                         <i class="fas fa-redo fa-2x" style="color:#f28b00;"></i>
                     </div>
@@ -153,12 +157,14 @@
                 </div>
             </div>
             <div class="col-6 col-md-4 col-lg-2">
-                <div class="card border rounded-3 text-center p-3 h-100 quick-action-card" style="cursor:pointer;">
-                    <div class="mb-2">
-                        <i class="fas fa-star fa-2x" style="color:#f28b00;"></i>
+                <a href="{% url 'shop' %}" class="text-decoration-none d-block h-100">
+                    <div class="card border rounded-3 text-center p-3 h-100 quick-action-card" style="cursor:pointer;">
+                        <div class="mb-2">
+                            <i class="fas fa-star fa-2x" style="color:#f28b00;"></i>
+                        </div>
+                        <p class="mb-0 small fw-semibold text-dark">Leave a Review</p>
                     </div>
-                    <p class="mb-0 small fw-semibold text-dark">Leave a Review</p>
-                </div>
+                </a>
             </div>
         </div>
 
@@ -434,6 +440,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 panel.classList.add('d-none');
             });
             document.getElementById('faq-' + target).classList.remove('d-none');
+        });
+    });
+
+    // Handle Quick Action Card FAQ Triggers
+    const faqTriggers = document.querySelectorAll('.faq-trigger');
+    faqTriggers.forEach(function(trigger) {
+        trigger.addEventListener('click', function() {
+            const category = this.getAttribute('data-category');
+            const targetFaq = this.getAttribute('data-faq-target');
+
+            // Find and click the sidebar category link
+            const sidebarLink = document.querySelector(`.faq-category[data-category="${category}"]`);
+            if (sidebarLink) {
+                sidebarLink.click();
+            }
+
+            // Expand the target accordion item
+            setTimeout(function() {
+                const btn = document.querySelector(`button[data-bs-target="${targetFaq}"]`);
+                if (btn && btn.classList.contains('collapsed')) {
+                    btn.click();
+                }
+                
+                // Scroll down to the accordion
+                const faqContainer = document.getElementById('faqSidebar');
+                if (faqContainer) {
+                    faqContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
         });
     });
 });
