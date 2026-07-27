@@ -4,134 +4,439 @@
 {% block title %}Help & Support - Electro{% endblock %}
 
 {% block content %}
-<!-- Single Page Header start -->
+<!-- Page Header -->
 <div class="container-fluid page-header py-5">
-    <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Help Center</h1>
+    <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Help &amp; Support</h1>
     <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
         <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-        <li class="breadcrumb-item active text-white">Help Center</li>
+        <li class="breadcrumb-item active text-white">Help &amp; Support</li>
     </ol>
 </div>
-<!-- Single Page Header End -->
+<!-- Page Header End -->
 
-<!-- Help Search & Contact Options Start -->
-<div class="container-fluid py-5">
-    <div class="container py-5 text-center" style="max-width: 900px;">
-        <h2 class="display-5 fw-bold text-dark mb-3">How can we help you today?</h2>
-        <p class="text-muted mb-5">Get instant support for your shopping, order tracking, and payment queries.</p>
-        
-        <div class="row g-4 justify-content-center">
-            <!-- Call Support -->
-            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="card border-0 shadow-sm rounded-3 p-4 bg-white text-center h-100 transition-hover">
-                    <div class="bg-light text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 70px; height: 70px; color: #f28b00 !important;">
-                        <i class="fa fa-phone-alt fa-2x"></i>
+<!-- About Electro Section -->
+<div class="container-fluid py-5" style="background: linear-gradient(135deg, #fff8f0 0%, #ffffff 100%);">
+    <div class="container py-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.1s">
+                <span class="badge rounded-pill px-3 py-2 mb-3 fw-semibold" style="background-color: #f28b00; font-size: 13px; letter-spacing: 1px;">ABOUT US</span>
+                <h2 class="display-5 fw-bold text-dark mb-4">Your Trusted Electronics <span style="color: #f28b00;">Partner</span></h2>
+                <p class="text-muted mb-4 fs-6" style="line-height: 1.9;">
+                    <strong>Electro</strong> is Kenya's premier destination for quality electronics and tech accessories. We bring you the latest gadgets — from laptops and smartphones to accessories — at the best prices with genuine warranty.
+                </p>
+                <p class="text-muted mb-4 fs-6" style="line-height: 1.9;">
+                    We believe technology should be accessible to everyone. That's why we offer flexible M-Pesa payments, free delivery on orders above KSh 5,000, and a dedicated support team ready to help you 7 days a week.
+                </p>
+                <div class="row g-3 mt-2">
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width:42px;height:42px;background-color:#fff3e0;">
+                                <i class="fas fa-check-circle" style="color:#f28b00;font-size:20px;"></i>
+                            </div>
+                            <span class="text-dark fw-semibold small">100% Genuine Products</span>
+                        </div>
                     </div>
-                    <h4 class="fw-bold text-dark mb-3">Call Support</h4>
-                    <p class="text-muted mb-4 small">Speak directly with one of our customer care representatives.</p>
-                    <a href="tel:+254712345678" class="btn btn-primary rounded-pill px-4 py-2 text-white fw-bold mt-auto" style="background-color: #f28b00; border-color: #f28b00;">
-                        <i class="fa fa-phone-alt me-2"></i>Call Us
-                    </a>
-                </div>
-            </div>
-            
-            <!-- WhatsApp Support -->
-            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="card border-0 shadow-sm rounded-3 p-4 bg-white text-center h-100 transition-hover">
-                    <div class="bg-light text-success rounded-circle d-inline-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 70px; height: 70px; color: #25d366 !important;">
-                        <i class="fab fa-whatsapp fa-2x"></i>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width:42px;height:42px;background-color:#fff3e0;">
+                                <i class="fas fa-check-circle" style="color:#f28b00;font-size:20px;"></i>
+                            </div>
+                            <span class="text-dark fw-semibold small">M-Pesa Payments</span>
+                        </div>
                     </div>
-                    <h4 class="fw-bold text-dark mb-3">WhatsApp Support</h4>
-                    <p class="text-muted mb-4 small">Chat with us on WhatsApp for fast, friendly text support.</p>
-                    <a href="https://wa.me/254712345678" target="_blank" class="btn btn-success rounded-pill px-4 py-2 text-white fw-bold mt-auto" style="background-color: #25d366; border-color: #25d366;">
-                        <i class="fab fa-whatsapp me-2"></i>WhatsApp
-                    </a>
-                </div>
-            </div>
-
-            <!-- Email Support (Mail Us) -->
-            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="card border-0 shadow-sm rounded-3 p-4 bg-white text-center h-100 transition-hover">
-                    <div class="bg-light text-info rounded-circle d-inline-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 70px; height: 70px; color: #0dcaf0 !important;">
-                        <i class="fa fa-envelope fa-2x"></i>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width:42px;height:42px;background-color:#fff3e0;">
+                                <i class="fas fa-check-circle" style="color:#f28b00;font-size:20px;"></i>
+                            </div>
+                            <span class="text-dark fw-semibold small">Nationwide Delivery</span>
+                        </div>
                     </div>
-                    <h4 class="fw-bold text-dark mb-3">Mail Us</h4>
-                    <p class="text-muted mb-4 small">Email our support team directly for written queries.</p>
-                    <a href="mailto:info@example.com" class="btn btn-info rounded-pill px-4 py-2 text-white fw-bold mt-auto" style="background-color: #0dcaf0; border-color: #0dcaf0;">
-                        <i class="fa fa-envelope me-2"></i>Email Us
-                    </a>
-                </div>
-            </div>
-
-            <!-- Location/Address -->
-            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.4s">
-                <div class="card border-0 shadow-sm rounded-3 p-4 bg-white text-center h-100 transition-hover">
-                    <div class="bg-light text-danger rounded-circle d-inline-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 70px; height: 70px; color: #dc3545 !important;">
-                        <i class="fa fa-map-marker-alt fa-2x"></i>
-                    </div>
-                    <h4 class="fw-bold text-dark mb-3">Our Office</h4>
-                    <p class="text-muted mb-4 small">123 Street New York, USA. Feel free to visit our store.</p>
-                    <a href="https://maps.google.com" target="_blank" class="btn btn-danger rounded-pill px-4 py-2 text-white fw-bold mt-auto" style="background-color: #dc3545; border-color: #dc3545;">
-                        <i class="fa fa-map-marker-alt me-2"></i>Find Us
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Help Search & Contact Options End -->
-
-<!-- About Electro Services Start -->
-<div class="container-fluid featurs py-5" style="background-color: #f8f9fa;">
-    <div class="container py-5">
-        <h3 class="text-center fw-bold text-dark mb-5 display-6">About Electro Services</h3>
-        <div class="row g-4 border-top pt-5">
-            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="featurs-item text-center rounded bg-white p-4 h-100 shadow-sm">
-                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-4 mx-auto" style="width: 80px; height: 80px; background-color: #f28b00 !important;">
-                        <i class="fas fa-car-side fa-3x text-white"></i>
-                    </div>
-                    <div class="featurs-content text-center">
-                        <h5>Free Shipping</h5>
-                        <p class="mb-0 text-muted">Free on all orders over KSh 99</p>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width:42px;height:42px;background-color:#fff3e0;">
+                                <i class="fas fa-check-circle" style="color:#f28b00;font-size:20px;"></i>
+                            </div>
+                            <span class="text-dark fw-semibold small">30-Day Returns</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="featurs-item text-center rounded bg-white p-4 h-100 shadow-sm">
-                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-4 mx-auto" style="width: 80px; height: 80px; background-color: #f28b00 !important;">
-                        <i class="User Shield fas fa-user-shield fa-3x text-white"></i>
+            <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.2s">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="rounded-3 text-center p-4 h-100 shadow-sm" style="background: linear-gradient(135deg,#f28b00,#ffb347);">
+                            <i class="fas fa-truck fa-2x text-white mb-3"></i>
+                            <h5 class="text-white fw-bold mb-1">Free Delivery</h5>
+                            <p class="text-white small mb-0">On orders over KSh 5,000</p>
+                        </div>
                     </div>
-                    <div class="featurs-content text-center">
-                        <h5>Security Payment</h5>
-                        <p class="mb-0 text-muted">100% secure payment methods</p>
+                    <div class="col-6">
+                        <div class="rounded-3 text-center p-4 h-100 shadow-sm" style="background: linear-gradient(135deg,#1a73e8,#4dabf7);">
+                            <i class="fas fa-shield-alt fa-2x text-white mb-3"></i>
+                            <h5 class="text-white fw-bold mb-1">Secure Payment</h5>
+                            <p class="text-white small mb-0">100% safe M-Pesa checkout</p>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="featurs-item text-center rounded bg-white p-4 h-100 shadow-sm">
-                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-4 mx-auto" style="width: 80px; height: 80px; background-color: #f28b00 !important;">
-                        <i class="fas fa-exchange-alt fa-3x text-white"></i>
+                    <div class="col-6">
+                        <div class="rounded-3 text-center p-4 h-100 shadow-sm" style="background: linear-gradient(135deg,#00b894,#55efc4);">
+                            <i class="fas fa-undo-alt fa-2x text-white mb-3"></i>
+                            <h5 class="text-white fw-bold mb-1">Easy Returns</h5>
+                            <p class="text-white small mb-0">30-day hassle-free return</p>
+                        </div>
                     </div>
-                    <div class="featurs-content text-center">
-                        <h5>30 Day Return</h5>
-                        <p class="mb-0 text-muted">30 day money back guarantee</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="featurs-item text-center rounded bg-white p-4 h-100 shadow-sm">
-                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-4 mx-auto" style="width: 80px; height: 80px; background-color: #f28b00 !important;">
-                        <i class="fa fa-phone-alt fa-3x text-white"></i>
-                    </div>
-                    <div class="featurs-content text-center">
-                        <h5>24/7 Support</h5>
-                        <p class="mb-0 text-muted">Dedicated support anytime</p>
+                    <div class="col-6">
+                        <div class="rounded-3 text-center p-4 h-100 shadow-sm" style="background: linear-gradient(135deg,#6c5ce7,#a29bfe);">
+                            <i class="fas fa-headset fa-2x text-white mb-3"></i>
+                            <h5 class="text-white fw-bold mb-1">24/7 Support</h5>
+                            <p class="text-white small mb-0">We're always here for you</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- About Electro Services End -->
+<!-- About Electro End -->
+
+<!-- Help Center Section (Jumia-style) -->
+<div class="container-fluid py-5" style="background-color: #fffbf5;">
+    <div class="container py-3">
+
+        <!-- Hero Banner -->
+        <div class="rounded-4 text-center py-5 px-4 mb-5 wow fadeInUp" data-wow-delay="0.1s"
+             style="background: linear-gradient(135deg, #f28b00 0%, #ffb347 100%);">
+            <h2 class="display-6 fw-bold text-white mb-2">Hi, how can we help you?</h2>
+            <p class="text-white mb-0 fs-6 opacity-90">Browse topics below or contact us directly</p>
+        </div>
+
+        <!-- Quick Action Cards (Jumia-style) -->
+        <div class="row g-3 mb-5 justify-content-center wow fadeInUp" data-wow-delay="0.15s">
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="card border rounded-3 text-center p-3 h-100 quick-action-card" style="cursor:pointer;">
+                    <div class="mb-2">
+                        <i class="fas fa-box fa-2x" style="color:#f28b00;"></i>
+                    </div>
+                    <p class="mb-0 small fw-semibold text-dark">Place an Order</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="card border rounded-3 text-center p-3 h-100 quick-action-card" style="cursor:pointer;">
+                    <div class="mb-2">
+                        <i class="fas fa-mobile-alt fa-2x" style="color:#f28b00;"></i>
+                    </div>
+                    <p class="mb-0 small fw-semibold text-dark">Pay via M-Pesa</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="card border rounded-3 text-center p-3 h-100 quick-action-card" style="cursor:pointer;">
+                    <div class="mb-2">
+                        <i class="fas fa-map-marker-alt fa-2x" style="color:#f28b00;"></i>
+                    </div>
+                    <p class="mb-0 small fw-semibold text-dark">Track Your Order</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="card border rounded-3 text-center p-3 h-100 quick-action-card" style="cursor:pointer;">
+                    <div class="mb-2">
+                        <i class="fas fa-times-circle fa-2x" style="color:#f28b00;"></i>
+                    </div>
+                    <p class="mb-0 small fw-semibold text-dark">Cancel an Order</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="card border rounded-3 text-center p-3 h-100 quick-action-card" style="cursor:pointer;">
+                    <div class="mb-2">
+                        <i class="fas fa-redo fa-2x" style="color:#f28b00;"></i>
+                    </div>
+                    <p class="mb-0 small fw-semibold text-dark">Create a Return</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="card border rounded-3 text-center p-3 h-100 quick-action-card" style="cursor:pointer;">
+                    <div class="mb-2">
+                        <i class="fas fa-star fa-2x" style="color:#f28b00;"></i>
+                    </div>
+                    <p class="mb-0 small fw-semibold text-dark">Leave a Review</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section with sidebar -->
+        <div class="row g-4 wow fadeInUp" data-wow-delay="0.2s">
+            <!-- Sidebar Categories -->
+            <div class="col-lg-3">
+                <div class="list-group rounded-3 shadow-sm border-0" id="faqSidebar">
+                    <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3 active faq-category" data-category="payments" style="background-color:#f28b00;border-color:#f28b00;">
+                        <span><i class="fas fa-credit-card me-2"></i> Payments</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3 faq-category" data-category="delivery">
+                        <span><i class="fas fa-truck me-2"></i> Delivery</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3 faq-category" data-category="returns">
+                        <span><i class="fas fa-undo me-2"></i> Returns &amp; Refunds</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3 faq-category" data-category="account">
+                        <span><i class="fas fa-user me-2"></i> My Account</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3 faq-category" data-category="orders">
+                        <span><i class="fas fa-shopping-bag me-2"></i> Orders</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- FAQ Accordion -->
+            <div class="col-lg-9">
+                <!-- Payments FAQs -->
+                <div class="faq-panel" id="faq-payments">
+                    <p class="fw-bold text-muted text-uppercase small mb-3" style="letter-spacing:1px;">Payments</p>
+                    <div class="accordion shadow-sm rounded-3 border-0" id="accordionPayments">
+                        <div class="accordion-item border-0 border-bottom">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#pay1">
+                                    What payment methods are accepted on Electro?
+                                </button>
+                            </h2>
+                            <div id="pay1" class="accordion-collapse collapse show" data-bs-parent="#accordionPayments">
+                                <div class="accordion-body text-muted">
+                                    We accept <strong>M-Pesa STK Push</strong> (the most popular), as well as bank transfers. Simply enter your M-Pesa number at checkout and approve the prompt on your phone.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 border-bottom">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#pay2">
+                                    How secure is my payment information?
+                                </button>
+                            </h2>
+                            <div id="pay2" class="accordion-collapse collapse" data-bs-parent="#accordionPayments">
+                                <div class="accordion-body text-muted">
+                                    All payments are processed securely via the <strong>Safaricom M-Pesa API</strong>. We never store your M-Pesa PIN or any card details. Your transactions are fully encrypted end-to-end.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 border-bottom">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#pay3">
+                                    What do I do if my payment is declined?
+                                </button>
+                            </h2>
+                            <div id="pay3" class="accordion-collapse collapse" data-bs-parent="#accordionPayments">
+                                <div class="accordion-body text-muted">
+                                    If payment fails, ensure you have sufficient M-Pesa balance and your number is registered. You can retry from your orders page. If it persists, contact our support team via WhatsApp.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery FAQs -->
+                <div class="faq-panel d-none" id="faq-delivery">
+                    <p class="fw-bold text-muted text-uppercase small mb-3" style="letter-spacing:1px;">Delivery</p>
+                    <div class="accordion shadow-sm rounded-3 border-0" id="accordionDelivery">
+                        <div class="accordion-item border-0 border-bottom">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#del1">
+                                    How long does delivery take?
+                                </button>
+                            </h2>
+                            <div id="del1" class="accordion-collapse collapse show" data-bs-parent="#accordionDelivery">
+                                <div class="accordion-body text-muted">
+                                    Nairobi orders are delivered within <strong>1–2 business days</strong>. Countrywide deliveries take <strong>3–5 business days</strong> depending on location.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 border-bottom">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#del2">
+                                    Do you offer free delivery?
+                                </button>
+                            </h2>
+                            <div id="del2" class="accordion-collapse collapse" data-bs-parent="#accordionDelivery">
+                                <div class="accordion-body text-muted">
+                                    Yes! Free delivery is available on all orders above <strong>KSh 5,000</strong>. A flat delivery fee applies to smaller orders based on your location.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#del3">
+                                    Can I track my order?
+                                </button>
+                            </h2>
+                            <div id="del3" class="accordion-collapse collapse" data-bs-parent="#accordionDelivery">
+                                <div class="accordion-body text-muted">
+                                    Yes! Log in to your account, go to <strong>My Orders</strong>, and you'll see the current status of each order including dispatch and delivery updates.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Returns FAQs -->
+                <div class="faq-panel d-none" id="faq-returns">
+                    <p class="fw-bold text-muted text-uppercase small mb-3" style="letter-spacing:1px;">Returns &amp; Refunds</p>
+                    <div class="accordion shadow-sm rounded-3 border-0" id="accordionReturns">
+                        <div class="accordion-item border-0 border-bottom">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#ret1">
+                                    How do I return a product?
+                                </button>
+                            </h2>
+                            <div id="ret1" class="accordion-collapse collapse show" data-bs-parent="#accordionReturns">
+                                <div class="accordion-body text-muted">
+                                    Contact us via WhatsApp or email within <strong>30 days</strong> of delivery. Items must be in original condition with packaging. We'll arrange pickup at no extra cost.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 border-bottom">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#ret2">
+                                    How long does a refund take?
+                                </button>
+                            </h2>
+                            <div id="ret2" class="accordion-collapse collapse" data-bs-parent="#accordionReturns">
+                                <div class="accordion-body text-muted">
+                                    Once we receive the returned item, refunds are processed within <strong>3–5 business days</strong> directly to your M-Pesa number.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account FAQs -->
+                <div class="faq-panel d-none" id="faq-account">
+                    <p class="fw-bold text-muted text-uppercase small mb-3" style="letter-spacing:1px;">My Account</p>
+                    <div class="accordion shadow-sm rounded-3 border-0" id="accordionAccount">
+                        <div class="accordion-item border-0 border-bottom">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#acc1">
+                                    How do I create an account?
+                                </button>
+                            </h2>
+                            <div id="acc1" class="accordion-collapse collapse show" data-bs-parent="#accordionAccount">
+                                <div class="accordion-body text-muted">
+                                    Click <strong>Sign Up</strong> on the top bar, fill in your name, email and password. Once registered, you can view orders, manage your wishlist and track payments.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 border-bottom">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#acc2">
+                                    I forgot my password. What do I do?
+                                </button>
+                            </h2>
+                            <div id="acc2" class="accordion-collapse collapse" data-bs-parent="#accordionAccount">
+                                <div class="accordion-body text-muted">
+                                    Click <strong>Forgot Password</strong> on the login page and follow the email instructions to reset your password securely.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders FAQs -->
+                <div class="faq-panel d-none" id="faq-orders">
+                    <p class="fw-bold text-muted text-uppercase small mb-3" style="letter-spacing:1px;">Orders</p>
+                    <div class="accordion shadow-sm rounded-3 border-0" id="accordionOrders">
+                        <div class="accordion-item border-0 border-bottom">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#ord1">
+                                    Can I modify or cancel my order after placing it?
+                                </button>
+                            </h2>
+                            <div id="ord1" class="accordion-collapse collapse show" data-bs-parent="#accordionOrders">
+                                <div class="accordion-body text-muted">
+                                    Orders can be cancelled within <strong>1 hour</strong> of placement if they have not been dispatched yet. Contact us on WhatsApp immediately for quick assistance.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 border-bottom">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#ord2">
+                                    How do I view my order history?
+                                </button>
+                            </h2>
+                            <div id="ord2" class="accordion-collapse collapse" data-bs-parent="#accordionOrders">
+                                <div class="accordion-body text-muted">
+                                    Log in to your account and navigate to <strong>My Account → Orders</strong>. You can see all past orders and their M-Pesa payment statuses.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Help Center End -->
+
+<style>
+.quick-action-card {
+    transition: all 0.25s ease;
+    border-color: #e9ecef !important;
+}
+.quick-action-card:hover {
+    border-color: #f28b00 !important;
+    box-shadow: 0 4px 15px rgba(242,139,0,0.15);
+    transform: translateY(-3px);
+}
+.faq-category.active {
+    background-color: #f28b00 !important;
+    border-color: #f28b00 !important;
+    color: #fff !important;
+}
+.faq-category:not(.active):hover {
+    background-color: #fff8f0;
+    color: #f28b00;
+}
+.accordion-button:not(.collapsed) {
+    color: #f28b00;
+    background-color: #fff8f0;
+    box-shadow: none;
+}
+.accordion-button:focus {
+    box-shadow: none;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const categories = document.querySelectorAll('.faq-category');
+    const panels = document.querySelectorAll('.faq-panel');
+
+    categories.forEach(function(cat) {
+        cat.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = this.getAttribute('data-category');
+
+            // Update sidebar active state
+            categories.forEach(c => {
+                c.classList.remove('active');
+                c.style.backgroundColor = '';
+                c.style.borderColor = '';
+                c.style.color = '';
+            });
+            this.classList.add('active');
+            this.style.backgroundColor = '#f28b00';
+            this.style.borderColor = '#f28b00';
+            this.style.color = '#fff';
+
+            // Show relevant panel
+            panels.forEach(function(panel) {
+                panel.classList.add('d-none');
+            });
+            document.getElementById('faq-' + target).classList.remove('d-none');
+        });
+    });
+});
+</script>
+
 {% endblock %}

@@ -1,147 +1,159 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Contact - Electro{% endblock %}
+{% block title %}Contact Us - Electro{% endblock %}
 
 {% block content %}
-<!-- Single Page Header start -->
-    <div class="container-fluid page-header py-5">
-        <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Contact Us</h1>
-        <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
-            <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Pages</a></li>
-            <li class="breadcrumb-item active text-white">Contact</li>
-        </ol>
-    </div>
-    <!-- Single Page Header End -->
+<!-- Page Header -->
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Contact Us</h1>
+    <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+        <li class="breadcrumb-item active text-white">Contact</li>
+    </ol>
+</div>
+<!-- Page Header End -->
 
-    <!-- Contucts Start -->
-    <div class="container-fluid contact py-5">
-        <div class="container py-5">
-            <div class="p-5 bg-light rounded">
-                <div class="row g-4">
-                    <div class="col-12">
-                        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 900px;">
-                            <h4 class="text-primary border-bottom border-primary border-2 d-inline-block pb-2">Get in
-                                touch</h4>
-                            <p class="mb-5 fs-5 text-dark">We are here for you! how can we help, We are here for you!
-                            </p>
+<!-- Direct Contact Cards -->
+<div class="container-fluid py-5" style="background-color:#fff8f0;">
+    <div class="container">
+        <div class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+            <h4 class="text-primary border-bottom border-primary border-2 d-inline-block pb-2" style="color:#f28b00!important;border-color:#f28b00!important;">Get in Touch</h4>
+            <p class="mt-3 text-muted fs-5">We are here for you! Reach us through any of these channels.</p>
+        </div>
+        <div class="row g-4 justify-content-center wow fadeInUp" data-wow-delay="0.2s">
+
+            <!-- WhatsApp -->
+            <div class="col-md-6 col-lg-4">
+                <a href="https://wa.me/254712345678" target="_blank" class="text-decoration-none">
+                    <div class="card border-0 shadow rounded-4 p-4 text-center h-100 contact-card">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width:75px;height:75px;background-color:#e8f5e9;">
+                            <i class="fab fa-whatsapp fa-2x" style="color:#25d366;"></i>
                         </div>
+                        <h5 class="fw-bold text-dark mb-2">WhatsApp Us</h5>
+                        <p class="text-muted small mb-3">Chat with us instantly for fast, friendly support — any time of the day.</p>
+                        <span class="btn btn-success rounded-pill px-4 py-2 fw-bold text-white" style="background-color:#25d366;border-color:#25d366;">
+                            <i class="fab fa-whatsapp me-2"></i>Open WhatsApp
+                        </span>
                     </div>
-                    <div class="col-lg-7">
-                        <h5 class="text-primary wow fadeInUp" data-wow-delay="0.1s">Let’s Connect</h5>
-                        <h1 class="display-5 mb-4 wow fadeInUp" data-wow-delay="0.3s">Send Your Message</h1>
-                        <p class="mb-4 wow fadeInUp" data-wow-delay="0.5s">The contact form is currently inactive. Get a
-                            functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste
-                            the files, add a little code and you're done. <a
-                                href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
-                        <form>
-                            <div class="row g-4 wow fadeInUp" data-wow-delay="0.1s">
-                                <div class="col-lg-12 col-xl-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                        <label for="name">Your Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-xl-6">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                        <label for="email">Your Email</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-xl-6">
-                                    <div class="form-floating">
-                                        <input type="phone" class="form-control" id="phone" placeholder="Phone">
-                                        <label for="phone">Your Phone</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-xl-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="project" placeholder="Project">
-                                        <label for="project">Your Project</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                        <label for="subject">Subject</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a message here" id="message"
-                                            style="height: 160px"></textarea>
-                                        <label for="message">Message</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3">Send Message</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="h-100 rounded">
-                            <iframe class="rounded w-100" style="height: 100%;"
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387191.33750346623!2d-73.97968099999999!3d40.6974881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1694259649153!5m2!1sen!2sbd"
-                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </a>
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-6 col-lg-4">
+                <a href="mailto:info@electro.co.ke" class="text-decoration-none">
+                    <div class="card border-0 shadow rounded-4 p-4 text-center h-100 contact-card">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width:75px;height:75px;background-color:#e3f2fd;">
+                            <i class="fas fa-envelope fa-2x" style="color:#1a73e8;"></i>
                         </div>
+                        <h5 class="fw-bold text-dark mb-2">Email Us</h5>
+                        <p class="text-muted small mb-3">Send us an email and we'll get back to you within 24 hours on business days.</p>
+                        <span class="btn btn-primary rounded-pill px-4 py-2 fw-bold text-white" style="background-color:#1a73e8;border-color:#1a73e8;">
+                            <i class="fas fa-envelope me-2"></i>info@electro.co.ke
+                        </span>
                     </div>
-                    <div class="col-lg-12">
-                        <div class="row g-4 align-items-center justify-content-center">
-                            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                                <div class="rounded p-4">
-                                    <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                                        style="width: 70px; height: 70px;">
-                                        <i class="fas fa-map-marker-alt fa-2x text-primary"></i>
-                                    </div>
-                                    <div>
-                                        <h4>Address</h4>
-                                        <p class="mb-2">123 Street New York.USA</p>
-                                    </div>
+                </a>
+            </div>
+
+            <!-- Our Address -->
+            <div class="col-md-6 col-lg-4">
+                <a href="https://maps.google.com/?q=Nairobi,Kenya" target="_blank" class="text-decoration-none">
+                    <div class="card border-0 shadow rounded-4 p-4 text-center h-100 contact-card">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width:75px;height:75px;background-color:#fce4ec;">
+                            <i class="fas fa-map-marker-alt fa-2x" style="color:#e91e63;"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-2">Our Address</h5>
+                        <p class="text-muted small mb-3">Visit our store at our Nairobi location. We're open Mon–Sat, 8 AM to 6 PM.</p>
+                        <span class="btn btn-danger rounded-pill px-4 py-2 fw-bold text-white" style="background-color:#e91e63;border-color:#e91e63;">
+                            <i class="fas fa-map-marker-alt me-2"></i>Find on Map
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Direct Contact Cards End -->
+
+<!-- Send a Message Section -->
+<div class="container-fluid contact py-5">
+    <div class="container">
+        <div class="bg-light rounded-4 p-4 p-lg-5 shadow-sm">
+            <div class="row g-5 align-items-center">
+
+                <!-- Contact Form -->
+                <div class="col-lg-7 wow fadeInLeft" data-wow-delay="0.1s">
+                    <h5 class="fw-semibold mb-1" style="color:#f28b00;">Let's Connect</h5>
+                    <h2 class="display-6 fw-bold mb-4 text-dark">Send Your Message</h2>
+                    <p class="text-muted mb-4">Fill in the form below and we'll get back to you as soon as possible. You can also reach us directly via WhatsApp or email above.</p>
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-lg-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control rounded-3" id="contactName" placeholder="Your Name">
+                                    <label for="contactName">Your Name</label>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
-                                <div class="rounded p-4">
-                                    <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                                        style="width: 70px; height: 70px;">
-                                        <i class="fas fa-envelope fa-2x text-primary"></i>
-                                    </div>
-                                    <div>
-                                        <h4>Mail Us</h4>
-                                        <p class="mb-2">info@example.com</p>
-                                    </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control rounded-3" id="contactEmail" placeholder="Your Email">
+                                    <label for="contactEmail">Your Email</label>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.5s">
-                                <div class="rounded p-4">
-                                    <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                                        style="width: 70px; height: 70px;">
-                                        <i class="fa fa-phone-alt fa-2x text-primary"></i>
-                                    </div>
-                                    <div>
-                                        <h4>Telephone</h4>
-                                        <p class="mb-2">(+012) 3456 7890</p>
-                                    </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating">
+                                    <input type="tel" class="form-control rounded-3" id="contactPhone" placeholder="Your Phone">
+                                    <label for="contactPhone">Your Phone</label>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.7s">
-                                <div class="rounded p-4">
-                                    <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                                        style="width: 70px; height: 70px;">
-                                        <i class="fab fa-firefox-browser fa-2x text-primary"></i>
-                                    </div>
-                                    <div>
-                                        <h4>Yoursite@ex.com</h4>
-                                        <p class="mb-2">(+012) 3456 7890</p>
-                                    </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control rounded-3" id="contactSubject" placeholder="Subject">
+                                    <label for="contactSubject">Subject</label>
                                 </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control rounded-3" placeholder="Your message..." id="contactMessage" style="height: 150px;"></textarea>
+                                    <label for="contactMessage">Your Message</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn rounded-pill py-3 px-5 text-white fw-bold" style="background-color:#f28b00;border-color:#f28b00;">
+                                    <i class="fas fa-paper-plane me-2"></i>Send Message
+                                </button>
                             </div>
                         </div>
+                    </form>
+                </div>
+
+                <!-- Map -->
+                <div class="col-lg-5 wow fadeInRight" data-wow-delay="0.2s">
+                    <div class="rounded-4 overflow-hidden shadow-sm" style="height: 450px;">
+                        <iframe
+                            class="w-100 h-100"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255282.35853743808!2d36.68238474999999!3d-1.3028617999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1172d84d49a7%3A0xf7cf0254b297924c!2sNairobi%2C%20Kenya!5e0!3m2!1sen!2ske!4v1690000000000!5m2!1sen!2ske"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            style="border:0;">
+                        </iframe>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
-    <!-- Contuct End -->
+</div>
+<!-- Send a Message End -->
+
+<style>
+.contact-card {
+    transition: all 0.3s ease;
+}
+.contact-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.12) !important;
+}
+</style>
 {% endblock %}

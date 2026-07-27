@@ -4,8 +4,7 @@
         <div class="row gx-0 align-items-center">
             <div class="col-lg-4 text-center text-lg-start mb-lg-0">
                 <div class="d-inline-flex align-items-center" style="height: 45px;">
-                    <a href="{% url 'help_center' %}" class="text-muted me-2"> Help</a><small> / </small>
-                    <a href="{% url 'contact' %}" class="text-muted mx-2"> Support</a><small> / </small>
+                    <a href="{% url 'help_center' %}" class="text-muted me-2">Help &amp; Support</a><small> / </small>
                     <a href="{% url 'contact' %}" class="text-muted ms-2"> Contact</a>
                 </div>
             </div>
@@ -163,6 +162,7 @@
                             <a href="{% url 'bestsellers' %}" class="nav-item nav-link {% if request.resolver_match.url_name == 'bestsellers' %}active{% endif %}">Bestsellers</a>
                             <a href="{% url 'blog_list' %}" class="nav-item nav-link {% if request.resolver_match.url_name == 'blog_list' or request.resolver_match.url_name == 'blog_detail' %}active{% endif %}">Blog</a>
                             <a href="{% url 'contact' %}" class="nav-item nav-link me-2 {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
+                            <a href="{% url 'help_center' %}" class="nav-item nav-link me-2 {% if request.resolver_match.url_name == 'help_center' %}active{% endif %}">Help &amp; Support</a>
                             <div class="nav-item dropdown d-block d-lg-none mb-3">
                                 <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">All Categories</a>
                                 <div class="dropdown-menu m-0">
