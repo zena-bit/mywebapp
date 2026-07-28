@@ -211,7 +211,7 @@
                         <ul class="list-unstyled p-2 m-0">
                             {% for category in categories %}
                             <li class="py-1">
-                                <a href="{% url 'shop' %}" class="text-dark d-flex justify-content-between align-items-center text-decoration-none">
+                                <a href="{% url 'shop' %}?category={{ category.id }}" class="text-dark d-flex justify-content-between align-items-center text-decoration-none">
                                     <span>{{ category.name }}</span>
                                     <span class="badge bg-secondary rounded-pill">{{ category.products.count }}</span>
                                 </a>
@@ -241,7 +241,7 @@
                                 {% for category in categories %}
                                 <li>
                                     <div class="categories-bars-item">
-                                        <a href="{% url 'shop' %}">{{ category.name }}</a>
+                                        <a href="{% url 'shop' %}?category={{ category.id }}">{{ category.name }}</a>
                                         <span>({{ category.products.count }})</span>
                                     </div>
                                 </li>
@@ -281,7 +281,7 @@
                                         {% for category in categories %}
                                         <li>
                                             <div class="categories-bars-item">
-                                                <a href="{% url 'shop' %}">{{ category.name }}</a>
+                                                <a href="{% url 'shop' %}?category={{ category.id }}">{{ category.name }}</a>
                                                 <span>({{ category.products.count }})</span>
                                             </div>
                                         </li>

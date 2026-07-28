@@ -9,7 +9,7 @@
         <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Single Product</h1>
         <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
             <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Pages</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'shop' %}">Shop</a></li>
             <li class="breadcrumb-item active text-white">Single Product</li>
         </ol>
     </div>
@@ -238,10 +238,10 @@
                                 <span class="text-muted small">({{ avg_rating }} / 5 from {{ reviews.count }} review{{ reviews.count|pluralize }})</span>
                             </div>
                             <div class="mb-3">
-                                <div class="btn btn-primary d-inline-block rounded text-white py-1 px-4 me-2"><i
-                                        class="fab fa-facebook-f me-1"></i> Share</div>
-                                <div class="btn btn-secondary d-inline-block rounded text-white py-1 px-4 ms-2"><i
-                                        class="fab fa-twitter ms-1"></i> Share</div>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank" class="btn btn-primary d-inline-block rounded text-white py-1 px-4 me-2"><i
+                                        class="fab fa-facebook-f me-1"></i> Share</a>
+                                <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text={{ product.name|urlencode }}" target="_blank" class="btn btn-secondary d-inline-block rounded text-white py-1 px-4 ms-2" style="background-color: #1da1f2; border-color: #1da1f2;"><i
+                                        class="fab fa-twitter me-1"></i> Share</a>
                             </div>
                             <div class="d-flex flex-column mb-3">
                                 <small>Product ID: #{{ product.id }}</small>
@@ -250,18 +250,18 @@
                             <p class="mb-4">{{ product.description }}</p>
                             <div class="input-group quantity mb-5" style="width: 100px;">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                    <button type="button" class="btn btn-sm btn-minus rounded-circle bg-light border" id="qty-minus">
                                         <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
-                                <input type="text" class="form-control form-control-sm text-center border-0" value="1">
+                                <input type="text" class="form-control form-control-sm text-center border-0" value="1" id="qty-input" min="1">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                    <button type="button" class="btn btn-sm btn-plus rounded-circle bg-light border" id="qty-plus">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
-                            <a href="{% url 'add_to_cart' product_id=product.id %}"
+                            <a href="{% url 'add_to_cart' product_id=product.id %}" id="add-to-cart-btn"
                                 class="btn btn-primary border border-secondary rounded-pill px-4 py-2 mb-4 text-white" style="background-color: #f28b00; border-color: #f28b00;"><i
                                     class="fa fa-shopping-bag me-2 text-white"></i> Add to cart</a>
                             <a href="{% url 'add_to_wishlist' product_id=product.id %}"
@@ -308,7 +308,7 @@
                                     <p class="small">HPB12, A12, A12EX, A12-XJ, A1712, B-8315, BD1204L, BD-1204L,
                                         BPT1047, FS120B, FS120BX, FSB12.</p>
                                 </div>
-                                <div class="tab-pane active" id="nav-mission" role="tabpanel"
+                                <div class="tab-pane" id="nav-mission" role="tabpanel"
                                     aria-labelledby="nav-mission-tab">
                                     {% for review in reviews %}
                                     <div class="d-flex mb-4 align-items-start border-bottom pb-3">
@@ -407,6 +407,40 @@
                             Please <a href="{% url 'login' %}?next={{ request.path }}" class="alert-link">sign in</a> to leave a review for this product.
                         </div>
                         {% endif %}
+                        <!-- Quantity + Cart JS -->
+                        <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var qtyInput = document.getElementById('qty-input');
+                            var addToCartBtn = document.getElementById('add-to-cart-btn');
+                            var baseUrl = addToCartBtn ? addToCartBtn.getAttribute('href').split('?')[0] : '';
+
+                            var minusBtn = document.getElementById('qty-minus');
+                            var plusBtn = document.getElementById('qty-plus');
+
+                            if (minusBtn) {
+                                minusBtn.addEventListener('click', function() {
+                                    var val = parseInt(qtyInput.value) || 1;
+                                    if (val > 1) { qtyInput.value = val - 1; }
+                                    if (addToCartBtn) addToCartBtn.href = baseUrl + '?quantity=' + qtyInput.value;
+                                });
+                            }
+                            if (plusBtn) {
+                                plusBtn.addEventListener('click', function() {
+                                    var val = parseInt(qtyInput.value) || 1;
+                                    qtyInput.value = val + 1;
+                                    if (addToCartBtn) addToCartBtn.href = baseUrl + '?quantity=' + qtyInput.value;
+                                });
+                            }
+                            if (qtyInput) {
+                                qtyInput.addEventListener('change', function() {
+                                    var val = parseInt(this.value) || 1;
+                                    if (val < 1) val = 1;
+                                    this.value = val;
+                                    if (addToCartBtn) addToCartBtn.href = baseUrl + '?quantity=' + val;
+                                });
+                            }
+                        });
+                        </script>
                     </div>
                 </div>
             </div>

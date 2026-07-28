@@ -1,6 +1,6 @@
 import os
 from django.db.models import Q
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from core.models import Category, Product, Review
@@ -11,6 +11,17 @@ def shop(request):
     products = Product.objects.all()
     search_query = ""
     image_search_name = ""
+
+    # Category filter
+    category_id = request.GET.get('category')
+    selected_category = None
+    if category_id:
+        try:
+            selected_category = Category.objects.get(id=int(category_id))
+            products = products.filter(category=selected_category)
+            search_query = f"Category: {selected_category.name}"
+        except (ValueError, Category.DoesNotExist):
+            pass
 
     # Check for image search upload
     if request.method == 'POST' and 'camera_image' in request.FILES:
@@ -34,12 +45,23 @@ def shop(request):
             products = products.filter(Q(name__icontains=q) | Q(description__icontains=q))
             search_query = q
 
+    # Sorting
+    sort = request.GET.get('sort', 'default')
+    if sort == 'low-high':
+        products = products.order_by('price')
+    elif sort == 'high-low':
+        products = products.order_by('-price')
+    elif sort == 'newness':
+        products = products.order_by('-id')
+
     context = {
         'page_title': 'Shop',
         'categories': categories,
         'products': products,
         'search_query': search_query,
         'image_search_name': image_search_name,
+        'selected_category': selected_category,
+        'selected_sort': sort,
     }
     return render(request, 'shop.html', context)
 

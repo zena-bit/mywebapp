@@ -44,10 +44,18 @@ def add_to_cart(request, product_id):
     # Convert product_id to string since session keys are strings in JSON
     pid_str = str(product_id)
     
-    # Increment quantity or set to 1
-    cart_session[pid_str] = cart_session.get(pid_str, 0) + 1
+    try:
+        quantity = int(request.GET.get('quantity', request.POST.get('quantity', 1)))
+        if quantity < 1:
+            quantity = 1
+    except ValueError:
+        quantity = 1
+    
+    # Increment quantity
+    cart_session[pid_str] = cart_session.get(pid_str, 0) + quantity
     
     request.session['cart'] = cart_session
+    messages.success(request, f"Added {quantity} x '{product.name}' to your cart.")
     return redirect('cart')
 
 

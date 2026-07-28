@@ -87,11 +87,12 @@
                     <h5 class="fw-semibold mb-1" style="color:#f28b00;">Let's Connect</h5>
                     <h2 class="display-6 fw-bold mb-4 text-dark">Send Your Message</h2>
                     <p class="text-muted mb-4">Fill in the form below and we'll get back to you as soon as possible. You can also reach us directly via WhatsApp or email above.</p>
-                    <form>
+                    <form method="post" action="{% url 'contact' %}">
                         <div class="row g-3">
+                            {% csrf_token %}
                             <div class="col-lg-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control rounded-3" id="contactName" placeholder="Your Name">
+                                    <input type="text" class="form-control rounded-3" id="contactName" name="name" placeholder="Your Name">
                                     <label for="contactName">Your Name</label>
                                 </div>
                             </div>
