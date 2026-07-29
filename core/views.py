@@ -8,11 +8,12 @@ from blog.models import BlogPost
 
 def home(request):
     blog_posts = BlogPost.objects.all().order_by('-created_at')[:3]
-    featured_products = Product.objects.all()[:8]
+    products = Product.objects.all()
     context = {
+        'products': products,
         'blog_posts': blog_posts,
         'latest_posts': blog_posts,
-        'featured_products': featured_products,
+        'featured_products': products[:8],
     }
     return render(request, 'index.html', context)
 
