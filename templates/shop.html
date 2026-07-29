@@ -9,6 +9,7 @@
         <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Shop Page</h1>
         <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
             <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Pages</a></li>
             <li class="breadcrumb-item active text-white">Shop</li>
         </ol>
     </div>
@@ -27,7 +28,7 @@
                             {% for cat in categories %}
                             <li>
                                 <div class="categories-item">
-                                    <a href="{% url 'shop' %}?category={{ cat.id }}" class="text-dark {% if selected_category and selected_category.id == cat.id %}fw-bold text-primary{% endif %}"><i class="fas fa-tag text-secondary me-2"></i>{{ cat.name }}</a>
+                                    <a href="{% url 'shop' %}" class="text-dark"><i class="fas fa-apple-alt text-secondary me-2"></i>{{ cat.name }}</a>
                                     <span>({{ cat.products.count }})</span>
                                 </div>
                             </li>
@@ -60,30 +61,28 @@
                             style="width: 100%; height: 250px; top: 0; left: 0; background: rgba(242, 139, 0, 0.3);">
                             <h4 class="display-5 text-primary">SALE</h4>
                             <h3 class="display-4 text-white mb-4">Get UP To 50% Off</h3>
-                            <a href="{% url 'shop' %}" class="btn btn-primary rounded-pill">Shop Now</a>
+                            <a href="#" class="btn btn-primary rounded-pill">Shop Now</a>
                         </div>
                     </div>
                     <div class="row g-4">
                         <div class="col-xl-7">
-                            <form method="get" action="{% url 'shop' %}" class="input-group w-100 mx-auto d-flex">
-                                {% if request.GET.category %}<input type="hidden" name="category" value="{{ request.GET.category }}">{% endif %}
-                                {% if request.GET.sort %}<input type="hidden" name="sort" value="{{ request.GET.sort }}">{% endif %}
-                                <input type="search" name="q" class="form-control p-3" placeholder="Search products..."
-                                    aria-describedby="search-icon-1" value="{{ search_query|default:'' }}">
-                                <button type="submit" id="search-icon-1" class="input-group-text p-3 btn"><i
-                                        class="fa fa-search"></i></button>
-                            </form>
+                            <div class="input-group w-100 mx-auto d-flex">
+                                <input type="search" class="form-control p-3" placeholder="keywords"
+                                    aria-describedby="search-icon-1">
+                                <span id="search-icon-1" class="input-group-text p-3"><i
+                                        class="fa fa-search"></i></span>
+                            </div>
                         </div>
                         <div class="col-xl-3 text-end">
                             <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between">
                                 <label for="electronics">Sort By:</label>
-                                <select id="electronics" name="sort"
-                                    class="border-0 form-select-sm bg-light me-3"
-                                    onchange="window.location.href='{% url 'shop' %}?sort=' + this.value + '{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}'">
-                                    <option value="default" {% if selected_sort == 'default' %}selected{% endif %}>Default Sorting</option>
-                                    <option value="newness" {% if selected_sort == 'newness' %}selected{% endif %}>Newest</option>
-                                    <option value="low-high" {% if selected_sort == 'low-high' %}selected{% endif %}>Price: Low to High</option>
-                                    <option value="high-low" {% if selected_sort == 'high-low' %}selected{% endif %}>Price: High to Low</option>
+                                <select id="electronics" name="electronicslist"
+                                    class="border-0 form-select-sm bg-light me-3" form="electronicsform">
+                                    <option value="default">Default Sorting</option>
+                                    <option value="popularity">Popularity</option>
+                                    <option value="newness">Newness</option>
+                                    <option value="low-high">Price: Low to High</option>
+                                    <option value="high-low">Price: High to Low</option>
                                 </select>
                             </div>
                         </div>

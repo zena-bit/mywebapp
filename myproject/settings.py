@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,13 +20,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-bc)fnv-14=74vn9r5p^yqae=f)3lw=jb^mbep)k=!$okcz00hh'
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-bc)fnv-14=74vn9r5p^yqae=f)3lw=jb^mbep)k=!$okcz00hh')
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+ALLOWED_HOSTS = ['catherine.pythonanywhere.com', '127.0.0.1', 'localhost']
 
-ALLOWED_HOSTS = ['catherine.pythonanywhere.com', 'Catherine.pythonanywhere.com', '.pythonanywhere.com', '127.0.0.1', 'localhost', '*']
 
 
 
@@ -50,6 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -57,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'myproject.urls'
 
@@ -131,6 +132,15 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/6.0/ref/settings/#default-auto-field
 
@@ -139,11 +149,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Media files (User uploads)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-
-from decouple import config
-
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-bc)fnv-14=74vn9r5p^yqae=f)3lw=jb^mbep)k=!$okcz00hh')
-DEBUG = config('DEBUG', default=True, cast=bool)
 
 # Authentication settings
 LOGIN_URL = 'login'
@@ -158,4 +163,4 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MPESA_CONSUMER_KEY = config('MPESA_CONSUMER_KEY', default='')
 MPESA_CONSUMER_SECRET = config('MPESA_CONSUMER_SECRET', default='')
-MPESA_CALLBACK_URL = config('MPESA_CALLBACK_URL', default='https://catherine.pythonanywhere.com/cart/mpesa/callback/')
+MPESA_CALLBACK_URL = config('MPESA_CALLBACK_URL', default='https://your-domain.com/mpesa/callback/')

@@ -1,81 +1,11 @@
 {% load static %}
 
-<!-- Footer Start -->
-<div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
-    <div class="container py-5">
-        <div class="pb-4 mb-4 border-bottom border-secondary">
-            <div class="row g-4 align-items-center">
-                <div class="col-lg-3">
-                    <a href="{% url 'index' %}" class="text-decoration-none">
-                        <h1 class="text-primary mb-0" style="color: #f28b00 !important;"><i class="fas fa-shopping-bag text-secondary me-2"></i>Electro</h1>
-                        <p class="text-secondary mb-0" style="color: #ffb347 !important;">Kenya's Tech Store</p>
-                    </a>
-                </div>
-                <div class="col-lg-6">
-                    <div class="position-relative mx-auto">
-                        <form method="get" action="{% url 'shop' %}" class="d-flex">
-                            <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="text" name="q" placeholder="Looking for electronics? Search here...">
-                            <button type="submit" class="btn btn-primary border-0 py-3 px-4 position-absolute rounded-pill text-white font-weight-bold" style="top: 0; right: 0; background-color: #f28b00;">Search</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="d-flex justify-content-end pt-3">
-                        <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle text-white" href="https://wa.me/254712345678" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                        <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle text-white" href="mailto:info@electro.co.ke"><i class="fas fa-envelope"></i></a>
-                        <a class="btn btn-outline-secondary btn-md-square rounded-circle text-white" href="{% url 'contact' %}"><i class="fas fa-map-marker-alt"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row g-5">
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-item">
-                    <h4 class="text-light mb-3">Why People Like Us!</h4>
-                    <p class="mb-4">Electro provides genuine electronics, laptop, smartphone, and tech accessories with fast nationwide delivery and 100% safe M-Pesa payments.</p>
-                    <a href="{% url 'help_center' %}" class="btn btn-outline-warning rounded-pill py-2 px-4 text-white" style="border-color: #f28b00;">Read More</a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="d-flex flex-column text-start footer-item">
-                    <h4 class="text-light mb-3">Shop Info</h4>
-                    <a class="btn-link text-white-50 text-decoration-none mb-2" href="{% url 'index' %}"><i class="fas fa-angle-right me-2"></i>Home</a>
-                    <a class="btn-link text-white-50 text-decoration-none mb-2" href="{% url 'shop' %}"><i class="fas fa-angle-right me-2"></i>Shop Products</a>
-                    <a class="btn-link text-white-50 text-decoration-none mb-2" href="{% url 'bestsellers' %}"><i class="fas fa-angle-right me-2"></i>Bestsellers</a>
-                    <a class="btn-link text-white-50 text-decoration-none mb-2" href="{% url 'blog_list' %}"><i class="fas fa-angle-right me-2"></i>Blog & News</a>
-                    <a class="btn-link text-white-50 text-decoration-none mb-2" href="{% url 'help_center' %}"><i class="fas fa-angle-right me-2"></i>Help & Support</a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="d-flex flex-column text-start footer-item">
-                    <h4 class="text-light mb-3">Account & Cart</h4>
-                    <a class="btn-link text-white-50 text-decoration-none mb-2" href="{% url 'my_dashboard' %}"><i class="fas fa-angle-right me-2"></i>My Account</a>
-                    <a class="btn-link text-white-50 text-decoration-none mb-2" href="{% url 'cart' %}"><i class="fas fa-angle-right me-2"></i>Shopping Cart</a>
-                    <a class="btn-link text-white-50 text-decoration-none mb-2" href="{% url 'my_wishlist' %}"><i class="fas fa-angle-right me-2"></i>Wishlist</a>
-                    <a class="btn-link text-white-50 text-decoration-none mb-2" href="{% url 'my_orders' %}"><i class="fas fa-angle-right me-2"></i>Order History</a>
-                    <a class="btn-link text-white-50 text-decoration-none mb-2" href="{% url 'my_coupons' %}"><i class="fas fa-angle-right me-2"></i>My Coupons</a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-item">
-                    <h4 class="text-light mb-3">Contact Us</h4>
-                    <p><i class="fas fa-map-marker-alt me-2 text-warning"></i> Nairobi, Kenya</p>
-                    <p><i class="fas fa-envelope me-2 text-warning"></i> info@electro.co.ke</p>
-                    <p><i class="fas fa-phone me-2 text-warning"></i> +254 712 345678</p>
-                    <p><i class="fas fa-shield-alt me-2 text-warning"></i> 100% Safe M-Pesa Checkout</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Footer End -->
-
 <!-- Copyright Start -->
-<div class="container-fluid copyright py-4 bg-dark text-white border-top border-secondary">
+<div class="container-fluid copyright py-4 bg-dark text-white">
     <div class="container">
         <div class="row g-4 align-items-center justify-content-between">
             <div class="col-md-6 text-center text-md-start mb-md-0">
-                <span class="text-light">© <a href="{% url 'index' %}" class="text-white fw-bold text-decoration-none">Electro Store</a>, All Rights Reserved 2026.</span>
+                <span class="text-light">© <a href="{% url 'index' %}" class="text-white fw-bold text-decoration-none">Electro</a>, All Rights Reserved 2026.</span>
             </div>
             <div class="col-md-6 text-center text-md-end text-light">
                 Designed & Built with Premium Accents

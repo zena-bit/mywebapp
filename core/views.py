@@ -3,34 +3,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Product, Category
 from .forms import ProductForm, CategoryForm
-from blog.models import BlogPost
 
 def home(request):
-    products = Product.objects.all()
-    bestseller_products = Product.objects.filter(is_bestseller=True)
-    new_products = Product.objects.filter(is_new=True)
-    categories = Category.objects.all()
-    blog_posts = BlogPost.objects.all()[:3]
-    
-    # Chunk products in groups of 4 for the nested mini-carousels
-    products_list = list(products)
-    chunked_products = [products_list[i:i + 4] for i in range(0, len(products_list), 4)]
-    
-    context = {
-        'products': products,
-        'bestseller_products': bestseller_products,
-        'new_products': new_products,
-        'categories': categories,
-        'chunked_products': chunked_products,
-        'blog_posts': blog_posts,
-    }
-    return render(request, 'index.html', context)
+    return render(request, 'index.html')
 
 def contact(request):
-    if request.method == 'POST':
-        name = request.POST.get('name', '').strip()
-        messages.success(request, f"Thank you{', ' + name if name else ''}! Your message has been sent successfully. We will contact you soon.")
-        return redirect('contact')
     return render(request, 'contact.html')
 
 def help_center(request):
