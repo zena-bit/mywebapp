@@ -3,12 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Product, Category
 from .forms import ProductForm, CategoryForm
+from blog.models import BlogPost
 
 def home(request):
     products = Product.objects.all()
     bestseller_products = Product.objects.filter(is_bestseller=True)
     new_products = Product.objects.filter(is_new=True)
     categories = Category.objects.all()
+    blog_posts = BlogPost.objects.all()[:3]
     
     # Chunk products in groups of 4 for the nested mini-carousels
     products_list = list(products)
@@ -20,6 +22,7 @@ def home(request):
         'new_products': new_products,
         'categories': categories,
         'chunked_products': chunked_products,
+        'blog_posts': blog_posts,
     }
     return render(request, 'index.html', context)
 
