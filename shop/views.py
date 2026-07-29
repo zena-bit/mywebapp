@@ -93,6 +93,8 @@ def add_review(request, product_id):
 def bestsellers(request):
     categories = Category.objects.all()
     products = Product.objects.filter(is_bestseller=True)
+    if not products.exists():
+        products = Product.objects.all()
     context = {
         'page_title': 'Bestsellers',
         'categories': categories,

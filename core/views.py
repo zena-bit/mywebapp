@@ -4,8 +4,17 @@ from django.contrib import messages
 from .models import Product, Category
 from .forms import ProductForm, CategoryForm
 
+from blog.models import BlogPost
+
 def home(request):
-    return render(request, 'index.html')
+    blog_posts = BlogPost.objects.all().order_by('-created_at')[:3]
+    featured_products = Product.objects.all()[:8]
+    context = {
+        'blog_posts': blog_posts,
+        'latest_posts': blog_posts,
+        'featured_products': featured_products,
+    }
+    return render(request, 'index.html', context)
 
 def contact(request):
     return render(request, 'contact.html')
