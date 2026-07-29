@@ -94,7 +94,7 @@
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.2s">
-                    <a href="#" class="d-flex align-items-center justify-content-between border bg-white rounded p-4">
+                    <a href="{% url 'shop' %}?q=camera" class="d-flex align-items-center justify-content-between border bg-white rounded p-4">
                         <div>
                             <p class="text-muted mb-3">Find The Best Camera for You!</p>
                             <h3 class="text-primary">Smart Camera</h3>
@@ -105,10 +105,10 @@
                     </a>
                 </div>
                 <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.3s">
-                    <a href="#" class="d-flex align-items-center justify-content-between border bg-white rounded p-4">
+                    <a href="{% url 'shop' %}?q=watch" class="d-flex align-items-center justify-content-between border bg-white rounded p-4">
                         <div>
-                            <p class="text-muted mb-3">Find The Best Whatches for You!</p>
-                            <h3 class="text-primary">Smart Whatch</h3>
+                            <p class="text-muted mb-3">Find The Best Watches for You!</p>
+                            <h3 class="text-primary">Smart Watch</h3>
                             <h1 class="display-3 text-secondary mb-0">20% <span
                                     class="text-primary fw-normal">Off</span></h1>
                         </div>
@@ -164,9 +164,6 @@
                                 <i class="fas fa-shopping-cart me-2"></i> Add To Cart
                             </a>
                             <div class="d-flex">
-                                <a href="#" class="text-primary d-flex align-items-center justify-content-center me-3">
-                                    <span class="rounded-circle btn-sm-square border"><i class="fas fa-random"></i></span>
-                                </a>
                                 <a href="{% url 'add_to_wishlist' product_id=product.id %}" class="text-primary d-flex align-items-center justify-content-center me-0">
                                     <span class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span>
                                 </a>

@@ -177,35 +177,28 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center my-4">
-                            <a href="#" class="btn btn-primary px-4 py-3 rounded-pill w-100">Vew More</a>
+                            <a href="{% url 'shop' %}" class="btn btn-primary px-4 py-3 rounded-pill w-100">View More</a>
                         </div>
                     </div>
-                    <a href="#">
-                        <div class="position-relative">
-                            <img src="{% static 'img/product-banner-2.jpg' %}" class="img-fluid w-100 rounded" alt="Image">
-                            <div class="text-center position-absolute d-flex flex-column align-items-center justify-content-center rounded p-4"
-                                style="width: 100%; height: 100%; top: 0; right: 0; background: rgba(242, 139, 0, 0.3);">
-                                <h5 class="display-6 text-primary">SALE</h5>
-                                <h4 class="text-secondary">Get UP To 50% Off</h4>
-                                <a href="#" class="btn btn-primary rounded-pill px-4">Shop Now</a>
-                            </div>
+                    <div class="position-relative">
+                        <img src="{% static 'img/product-banner-2.jpg' %}" class="img-fluid w-100 rounded" alt="Image">
+                        <div class="text-center position-absolute d-flex flex-column align-items-center justify-content-center rounded p-4"
+                            style="width: 100%; height: 100%; top: 0; right: 0; background: rgba(242, 139, 0, 0.3);">
+                            <h5 class="display-6 text-primary">SALE</h5>
+                            <h4 class="text-secondary">Get UP To 50% Off</h4>
+                            <a href="{% url 'shop' %}" class="btn btn-primary rounded-pill px-4">Shop Now</a>
                         </div>
-                    </a>
+                    </div>
+                    {% if categories %}
                     <div class="product-tags my-4">
                         <h4 class="mb-3">PRODUCT TAGS</h4>
                         <div class="product-tags-items bg-light rounded p-3">
-                            <a href="#" class="border rounded py-1 px-2 mb-2">New</a>
-                            <a href="#" class="border rounded py-1 px-2 mb-2">brand</a>
-                            <a href="#" class="border rounded py-1 px-2 mb-2">black</a>
-                            <a href="#" class="border rounded py-1 px-2 mb-2">white</a>
-                            <a href="#" class="border rounded py-1 px-2 mb-2">tablets</a>
-                            <a href="#" class="border rounded py-1 px-2 mb-2">phone</a>
-                            <a href="#" class="border rounded py-1 px-2 mb-2">camera</a>
-                            <a href="#" class="border rounded py-1 px-2 mb-2">drone</a>
-                            <a href="#" class="border rounded py-1 px-2 mb-2">television</a>
-                            <a href="#" class="border rounded py-1 px-2 mb-2">sales</a>
+                            {% for category in categories %}
+                            <a href="{% url 'shop' %}?category={{ category.id }}" class="border rounded py-1 px-2 mb-2">{{ category.name }}</a>
+                            {% endfor %}
                         </div>
                     </div>
+                    {% endif %}
                 </div>
                 <div class="col-lg-7 col-xl-9 order-1 order-lg-2 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="row g-4 single-product">
@@ -495,7 +488,6 @@
                                 <i class="fas fa-star text-primary"></i>
                             </div>
                             <div class="d-flex">
-                                <a href="#" class="text-primary d-flex align-items-center justify-content-center me-3"><span class="rounded-circle btn-sm-square border"><i class="fas fa-random"></i></span></a>
                                 <a href="{% url 'add_to_wishlist' product_id=rel.id %}" class="text-primary d-flex align-items-center justify-content-center me-0"><span class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span></a>
                             </div>
                         </div>

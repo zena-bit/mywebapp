@@ -14,7 +14,15 @@
     
     
     // Initiate the wowjs
-    new WOW().init();
+    if (typeof WOW !== 'undefined') {
+        new WOW().init();
+    }
+
+
+    // Fall back to a no-op if owlCarousel failed to load, so the handlers below still bind
+    if (!$.fn.owlCarousel) {
+        $.fn.owlCarousel = function () { return this; };
+    }
 
 
     // Sticky Navbar
@@ -169,7 +177,8 @@
     }
     });
     $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+        var easing = $.easing && $.easing.easeInOutExpo ? 'easeInOutExpo' : 'swing';
+        $('html, body').animate({scrollTop: 0}, 1500, easing);
         return false;
     });
 
