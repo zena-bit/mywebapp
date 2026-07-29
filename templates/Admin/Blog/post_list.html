@@ -1,40 +1,88 @@
-{% extends 'admin_base.html' %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Manage Articles & Blog - Admin Panel{% endblock %}
 
 {% block content %}
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Admin Panel</h1>
+    <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+        <li class="breadcrumb-item active text-white">Manage Blog Posts</li>
+    </ol>
+</div>
+
 <div class="container py-5">
-    <div class="card border-0 shadow-sm p-4 bg-white">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold mb-0">All Posts</h2>
-            <a href="{% url 'create-post' %}" class="btn btn-primary rounded-pill px-4 text-white" style="background-color: #f28b00; border-color: #f28b00;">Add New Post</a>
+    <div class="row g-4">
+        <!-- Sidebar Menu -->
+        <div class="col-lg-3">
+            <div class="card border-0 shadow-sm rounded-3 p-3 bg-white">
+                <div class="d-flex align-items-center mb-4 p-2 border-bottom">
+                    <div class="bg-primary rounded-circle text-white d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; background-color: #f28b00 !important;">
+                        <i class="fa fa-user-cog fa-lg"></i>
+                    </div>
+                    <div>
+                        <h6 class="mb-0 fw-bold">Admin Portal</h6>
+                        <small class="text-muted">Content Manager</small>
+                    </div>
+                </div>
+                <div class="nav flex-column nav-pills">
+                    <a href="{% url 'product_list' %}" class="nav-link mb-2 text-dark rounded-pill py-2 px-3 bg-light"><i class="fa fa-box me-2"></i> Manage Products</a>
+                    <a href="{% url 'category_list' %}" class="nav-link mb-2 text-dark rounded-pill py-2 px-3 bg-light"><i class="fa fa-tags me-2"></i> Manage Categories</a>
+                    <a href="{% url 'post-list' %}" class="nav-link active mb-2 rounded-pill py-2 px-3 text-white" style="background-color: #f28b00; border-color: #f28b00;"><i class="fa fa-newspaper me-2"></i> Manage Blogs &amp; Articles</a>
+                    <a href="{% url 'index' %}" class="nav-link text-dark rounded-pill py-2 px-3 bg-light"><i class="fa fa-arrow-left me-2"></i> Back to Store</a>
+                </div>
+            </div>
         </div>
-        <div class="table-responsive">
-            <table class="table align-middle table-hover">
-                <thead class="table-light">
-                    <tr>
-                        <th>Title</th>
-                        <th class="text-end">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for post in posts %}
-                    <tr>
-                        <td class="fw-semibold text-dark">{{ post.title }}</td>
-                        <td class="text-end">
-                            <a href="{% url 'post-detail' post.pk %}" class="btn btn-sm btn-outline-info rounded-pill px-3 me-1">View</a>
-                            <a href="{% url 'update-post' post.pk %}" class="btn btn-sm btn-outline-warning rounded-pill px-3 me-1">Edit</a>
-                            <a href="{% url 'delete-post' post.pk %}" class="btn btn-sm btn-outline-danger rounded-pill px-3">Delete</a>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="2" class="text-center py-5 text-muted">
-                            <i class="fa fa-folder-open fa-3x mb-3 d-block" style="color: #ccc;"></i>
-                            No blog posts available.
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible fade show rounded-3 mb-4" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="card border-0 shadow-sm rounded-3 p-4 bg-white">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="fw-bold text-dark mb-0">Blog Articles</h4>
+                    <a href="{% url 'create-post' %}" class="btn btn-primary rounded-pill px-4 py-2 text-white" style="background-color: #f28b00; border-color: #f28b00;">
+                        <i class="fa fa-plus-circle me-1"></i> Add New Article
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-middle table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Title</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for post in posts %}
+                            <tr>
+                                <td class="fw-semibold text-dark">{{ post.title }}</td>
+                                <td class="text-end">
+                                    <a href="{% url 'post-detail' post.pk %}" class="btn btn-sm btn-outline-info rounded-pill px-3 me-1">View</a>
+                                    <a href="{% url 'update-post' post.pk %}" class="btn btn-sm btn-outline-warning rounded-pill px-3 me-1">Edit</a>
+                                    <a href="{% url 'delete-post' post.pk %}" class="btn btn-sm btn-outline-danger rounded-pill px-3">Delete</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="2" class="text-center py-5 text-muted">
+                                    <i class="fa fa-folder-open fa-3x mb-3 d-block" style="color: #ccc;"></i>
+                                    No blog articles published yet.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
