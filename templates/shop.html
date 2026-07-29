@@ -143,7 +143,20 @@
                                 </div>
                                 {% empty %}
                                 <div class="col-12 text-center py-5">
-                                    <p class="fs-4 text-muted">No products available at the moment.</p>
+                                    <div class="bg-light p-5 rounded shadow-sm d-inline-block" style="max-width: 500px;">
+                                        <i class="fa fa-box-open fa-4x mb-3" style="color: #f28b00;"></i>
+                                        <h4 class="fw-bold text-dark mb-2">Product not available at the moment</h4>
+                                        <p class="text-muted mb-4">
+                                            {% if selected_category %}
+                                                We currently don't have any items under <strong>{{ selected_category.name }}</strong>.
+                                            {% else %}
+                                                We couldn't find any products matching your selection.
+                                            {% endif %}
+                                        </p>
+                                        <a href="{% url 'shop' %}" class="btn btn-primary rounded-pill px-4 py-2 text-white" style="background-color: #f28b00; border-color: #f28b00;">
+                                            <i class="fa fa-shopping-bag me-1"></i> Browse All Products
+                                        </a>
+                                    </div>
                                 </div>
                                 {% endfor %}
                             </div>

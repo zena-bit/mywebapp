@@ -11,6 +11,17 @@ def shop(request):
     products = Product.objects.all()
     search_query = ""
     image_search_name = ""
+    selected_category = None
+
+    # Check for category filter parameter
+    category_id = request.GET.get('category')
+    if category_id:
+        try:
+            selected_category = Category.objects.get(pk=category_id)
+            products = products.filter(category=selected_category)
+            search_query = f"Category: {selected_category.name}"
+        except (Category.DoesNotExist, ValueError):
+            pass
 
     # Check for image search upload
     if request.method == 'POST' and 'camera_image' in request.FILES:
@@ -27,7 +38,7 @@ def shop(request):
                 query |= Q(name__icontains=word) | Q(description__icontains=word)
             products = products.filter(query)
         search_query = f"Uploaded Image ({filename})"
-    else:
+    elif not selected_category:
         # Check for text query search
         q = request.GET.get('q', '').strip()
         if q:
@@ -40,6 +51,7 @@ def shop(request):
         'products': products,
         'search_query': search_query,
         'image_search_name': image_search_name,
+        'selected_category': selected_category,
     }
     return render(request, 'shop.html', context)
 

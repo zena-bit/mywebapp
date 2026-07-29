@@ -125,10 +125,10 @@
                     <div class="collapse navbar-collapse rounded-bottom" id="allCat">
                         <div class="navbar-nav ms-auto py-0">
                             <ul class="list-unstyled categories-bars">
-                                {% for category in categories %}
+                                 {% for category in categories %}
                                 <li>
                                     <div class="categories-bars-item">
-                                        <a href="{% url 'shop' %}">{{ category.name }}</a>
+                                        <a href="{% url 'shop' %}?category={{ category.id }}">{{ category.name }}</a>
                                         <span>({{ category.products.count }})</span>
                                     </div>
                                 </li>
@@ -190,7 +190,7 @@
                                 <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-tags me-2"></i>Categories</a>
                                 <div class="dropdown-menu m-0 p-2 shadow-sm rounded">
                                     {% for category in categories %}
-                                        <a href="{% url 'shop' %}" class="dropdown-item py-1">{{ category.name }}</a>
+                                        <a href="{% url 'shop' %}?category={{ category.id }}" class="dropdown-item py-1">{{ category.name }}</a>
                                     {% empty %}
                                         <a href="{% url 'shop' %}" class="dropdown-item py-1">All Products</a>
                                     {% endfor %}
