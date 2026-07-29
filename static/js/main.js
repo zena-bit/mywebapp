@@ -85,19 +85,21 @@
     });
 
     // ProductList categories carousel
-    $(".productImg-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 1500,
-        dots: false,
-        loop: true,
-        items: 1,
-        margin: 25,
-        nav : true,
-        navText : [
-            '<i class="bi bi-arrow-left"></i>',
-            '<i class="bi bi-arrow-right"></i>'
-        ]
-    });
+    if ($(".productImg-carousel").length > 0) {
+        $(".productImg-carousel").owlCarousel({
+            autoplay: true,
+            smartSpeed: 1500,
+            dots: false,
+            loop: false,
+            items: 1,
+            margin: 25,
+            nav : true,
+            navText : [
+                '<i class="bi bi-arrow-left"></i>',
+                '<i class="bi bi-arrow-right"></i>'
+            ]
+        });
+    }
 
 
     // Single Products carousel
