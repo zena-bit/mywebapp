@@ -142,8 +142,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 from decouple import config
 
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-bc)fnv-14=74vn9r5p^yqae=f)3lw=jb^mbep)k=!$okcz00hh')
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 # Authentication settings
 LOGIN_URL = 'login'
@@ -156,8 +156,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-from decouple import config
-
-MPESA_CONSUMER_KEY = config('MPESA_CONSUMER_KEY')
-MPESA_CONSUMER_SECRET = config('MPESA_CONSUMER_SECRET')
-MPESA_CALLBACK_URL = config('MPESA_CALLBACK_URL', default='https://your-domain.com/mpesa/callback/')
+MPESA_CONSUMER_KEY = config('MPESA_CONSUMER_KEY', default='')
+MPESA_CONSUMER_SECRET = config('MPESA_CONSUMER_SECRET', default='')
+MPESA_CALLBACK_URL = config('MPESA_CALLBACK_URL', default='https://catherine.pythonanywhere.com/cart/mpesa/callback/')
