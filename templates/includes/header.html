@@ -172,10 +172,31 @@
                         <span class="fa fa-bars fa-1x text-white"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <!-- Mobile Search Bar -->
+                        <div class="d-block d-lg-none p-3 bg-light rounded my-2">
+                            <form method="get" action="{% url 'shop' %}" class="d-flex w-100 align-items-center bg-white rounded-pill border p-1">
+                                <input class="form-control border-0 py-2 ps-3" type="text" name="q" placeholder="Search products..." value="{{ request.GET.q|default:'' }}" style="box-shadow: none; font-size: 14px;">
+                                <button type="submit" class="btn btn-primary rounded-circle p-2 text-white d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; background-color: #f28b00; border: 0;"><i class="fas fa-search"></i></button>
+                            </form>
+                        </div>
+
                         <div class="navbar-nav ms-auto py-0">
                             <a href="{% url 'index' %}" class="nav-item nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}">Home</a>
                             <a href="{% url 'shop' %}" class="nav-item nav-link {% if request.resolver_match.url_name == 'shop' %}active{% endif %}">Shop</a>
                             <a href="{% url 'bestsellers' %}" class="nav-item nav-link {% if request.resolver_match.url_name == 'bestsellers' %}active{% endif %}">Bestsellers</a>
+
+                            <!-- Mobile Categories Dropdown -->
+                            <div class="nav-item dropdown d-block d-lg-none">
+                                <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-tags me-2"></i>Categories</a>
+                                <div class="dropdown-menu m-0 p-2 shadow-sm rounded">
+                                    {% for category in categories %}
+                                        <a href="{% url 'shop' %}" class="dropdown-item py-1">{{ category.name }}</a>
+                                    {% empty %}
+                                        <a href="{% url 'shop' %}" class="dropdown-item py-1">All Products</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
                             <a href="{% url 'blog_list' %}" class="nav-item nav-link {% if request.resolver_match.url_name == 'blog_list' or request.resolver_match.url_name == 'blog_detail' %}active{% endif %}">Blog &amp; Articles</a>
                             <a href="{% url 'help_center' %}" class="nav-item nav-link {% if request.resolver_match.url_name == 'help_center' %}active{% endif %}">Help &amp; Support</a>
                             <a href="{% url 'contact' %}" class="nav-item nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
@@ -192,6 +213,9 @@
                                     <a href="{% url 'my_orders' %}" class="dropdown-item py-2"><i class="fa fa-shopping-bag me-2"></i> My Orders</a>
                                     <a href="{% url 'my_wishlist' %}" class="dropdown-item py-2"><i class="fa fa-heart me-2"></i> My Wishlist</a>
                                     <a href="{% url 'cart' %}" class="dropdown-item py-2"><i class="fa fa-shopping-cart me-2"></i> My Cart</a>
+                                    {% if request.user.is_staff %}
+                                        <a href="{% url 'product_list' %}" class="dropdown-item py-2 text-primary fw-bold"><i class="fa fa-user-cog me-2"></i> Admin Panel</a>
+                                    {% endif %}
                                     {% if request.user.is_authenticated %}
                                         <hr class="dropdown-divider">
                                         <a href="{% url 'logout' %}" class="dropdown-item py-2 text-danger"><i class="fa fa-sign-out-alt me-2"></i> Logout</a>

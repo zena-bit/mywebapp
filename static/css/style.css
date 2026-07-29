@@ -868,7 +868,53 @@
 
 /*** copyright Start ***/
 .copyright {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    background: var(--bs-primary) !important;
+    background: #111;
+}
+
+/*** Mobile Optimizations ***/
+@media (max-width: 991.98px) {
+    .nav-bar .navbar-collapse {
+        background-color: #ffffff !important;
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        margin-top: 10px;
+    }
+    .nav-bar .navbar-nav .nav-link {
+        color: #333333 !important;
+        padding: 10px 15px !important;
+        border-bottom: 1px solid #f0f0f0;
+        font-weight: 600;
+    }
+    .nav-bar .navbar-nav .nav-link:hover,
+    .nav-bar .navbar-nav .nav-link.active {
+        color: #f28b00 !important;
+        background-color: #fff9f2;
+        border-radius: 8px;
+    }
+    .carousel-header-banner {
+        min-height: 250px !important;
+        margin-top: 15px;
+    }
+    .display-3 {
+        font-size: 2rem !important;
+    }
+    .table-responsive {
+        border: 0;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .container-fluid {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    .products-mini-item {
+        margin-bottom: 15px;
+    }
+    .btn {
+        padding: 10px 18px !important;
+        font-size: 14px !important;
+    }
 }
 /*** copyright end ***/
