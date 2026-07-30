@@ -155,5 +155,14 @@
 
    
 
+    // Mobile Navbar Toggler Fallback
+    $(document).on('click', '.navbar-toggler', function (e) {
+        var target = $(this).attr('data-bs-target') || $(this).attr('data-target');
+        if (target && $(target).length) {
+            e.preventDefault();
+            $(target).toggleClass('show');
+        }
+    });
+
 })(jQuery);
 
