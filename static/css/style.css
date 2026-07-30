@@ -239,6 +239,15 @@
     color: var(--bs-white);
 }
 
+.nav-bar {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 99999 !important;
+    transition: .5s;
+    background-color: var(--bs-primary) !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
+}
+
 .header-carousel.owl-carousel .owl-nav .owl-prev {
     right: 130px;
     transition: 0.5s;
