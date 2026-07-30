@@ -873,6 +873,19 @@
 
 /*** Mobile Optimizations ***/
 @media (max-width: 991.98px) {
+    .page-header {
+        padding: 30px 0 !important;
+    }
+    .page-header h1 {
+        font-size: 1.8rem !important;
+    }
+    .py-5 {
+        padding-top: 1.5rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+    .mb-5 {
+        margin-bottom: 1.5rem !important;
+    }
     .nav-bar .navbar-collapse {
         margin-top: 10px;
     }
@@ -902,22 +915,26 @@
     .display-3 {
         font-size: 2rem !important;
     }
+    .display-6 {
+        font-size: 1.5rem !important;
+    }
     .table-responsive {
         border: 0;
+        margin-bottom: 1rem;
     }
 }
 
 @media (max-width: 575.98px) {
     .container-fluid {
-        padding-left: 15px !important;
-        padding-right: 15px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
     }
     .products-mini-item {
-        margin-bottom: 15px;
+        margin-bottom: 12px;
     }
     .btn {
-        padding: 10px 18px !important;
-        font-size: 14px !important;
+        padding: 8px 14px !important;
+        font-size: 13px !important;
     }
 }
 /*** copyright end ***/
