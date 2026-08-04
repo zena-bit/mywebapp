@@ -18,75 +18,175 @@
     <!-- Cart Page Start -->
     <div class="container-fluid py-3 py-lg-5">
         <div class="container py-2 py-lg-4">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Product</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total</th>
-                            <th scope="col">Handle</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in cart_items %}
-                        <tr>
-                            <th scope="row">
-                                <div class="d-flex align-items-center">
-                                    {% if item.product.image %}
-                                        <img src="{{ item.product.image.url }}" class="img-fluid me-3 rounded-circle" style="width: 80px; height: 80px; object-fit: contain;" alt="{{ item.product.name }}">
-                                    {% else %}
-                                        <img src="{% static 'img/product-3.png' %}" class="img-fluid me-3 rounded-circle" style="width: 80px; height: 80px; object-fit: contain;" alt="{{ item.product.name }}">
-                                    {% endif %}
-                                    <p class="mb-0 py-4">{{ item.product.name }}</p>
-                                </div>
-                            </th>
-                            <td>
-                                <p class="mb-0 py-4">{{ item.product.category.name }}</p>
-                            </td>
-                            <td>
-                                <p class="mb-0 py-4">KSh {{ item.product.price }}</p>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center py-4">
-                                    <div class="input-group quantity" style="width: 120px;">
-                                        <div class="input-group-btn">
-                                            <a href="{% url 'remove_one_from_cart' product_id=item.product.id %}" class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                                <i class="fa fa-minus"></i>
-                                            </a>
-                                        </div>
-                                        <input type="text" class="form-control form-control-sm text-center border-0" value="{{ item.quantity }}" readonly style="width: 40px;">
-                                        <div class="input-group-btn">
-                                            <a href="{% url 'add_to_cart' product_id=item.product.id %}" class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                        </div>
+
+            <!-- ================================================================
+                 MOBILE CARD LAYOUT  (visible only below md breakpoint)
+            ================================================================ -->
+            <div class="d-block d-md-none">
+                {% for item in cart_items %}
+                <div class="card border rounded mb-3 shadow-sm overflow-hidden">
+                    <div class="card-body p-3">
+
+                        <!-- Image + Name / Category -->
+                        <div class="d-flex align-items-center mb-3">
+                            {% if item.product.image %}
+                                <img src="{{ item.product.image.url }}"
+                                     class="rounded-circle flex-shrink-0 me-3"
+                                     style="width:64px;height:64px;object-fit:contain;"
+                                     alt="{{ item.product.name }}">
+                            {% else %}
+                                <img src="{% static 'img/product-3.png' %}"
+                                     class="rounded-circle flex-shrink-0 me-3"
+                                     style="width:64px;height:64px;object-fit:contain;"
+                                     alt="{{ item.product.name }}">
+                            {% endif %}
+                            <div class="flex-grow-1 min-w-0">
+                                <p class="fw-bold mb-1 lh-sm text-truncate" style="font-size:15px;">{{ item.product.name }}</p>
+                                <span class="badge rounded-pill border text-muted bg-white" style="font-size:11px;">
+                                    {{ item.product.category.name }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Price / Qty / Subtotal / Remove row -->
+                        <div class="row g-2 align-items-center text-center">
+                            <!-- Unit price -->
+                            <div class="col-6 col-sm-3">
+                                <small class="text-muted text-uppercase d-block mb-1" style="font-size:10px;letter-spacing:.5px;">Price</small>
+                                <span class="fw-semibold text-dark" style="font-size:14px;">KSh {{ item.product.price }}</span>
+                            </div>
+
+                            <!-- Quantity stepper -->
+                            <div class="col-6 col-sm-3">
+                                <small class="text-muted text-uppercase d-block mb-1" style="font-size:10px;letter-spacing:.5px;">Qty</small>
+                                <div class="input-group quantity d-inline-flex" style="width:108px;">
+                                    <div class="input-group-btn">
+                                        <a href="{% url 'remove_one_from_cart' product_id=item.product.id %}"
+                                           class="btn btn-sm btn-minus rounded-circle bg-light border"
+                                           aria-label="Decrease quantity">
+                                            <i class="fa fa-minus"></i>
+                                        </a>
+                                    </div>
+                                    <input type="text"
+                                           class="form-control form-control-sm text-center border-0"
+                                           value="{{ item.quantity }}"
+                                           readonly
+                                           style="width:34px;">
+                                    <div class="input-group-btn">
+                                        <a href="{% url 'add_to_cart' product_id=item.product.id %}"
+                                           class="btn btn-sm btn-plus rounded-circle bg-light border"
+                                           aria-label="Increase quantity">
+                                            <i class="fa fa-plus"></i>
+                                        </a>
                                     </div>
                                 </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 py-4">KSh {{ item.total|floatformat:2 }}</p>
-                            </td>
-                            <td class="py-4">
-                                <a href="{% url 'remove_from_cart' product_id=item.product.id %}" class="btn btn-md rounded-circle bg-light border">
+                            </div>
+
+                            <!-- Subtotal -->
+                            <div class="col-6 col-sm-3">
+                                <small class="text-muted text-uppercase d-block mb-1" style="font-size:10px;letter-spacing:.5px;">Subtotal</small>
+                                <span class="fw-bold text-primary" style="font-size:15px;">KSh {{ item.total|floatformat:2 }}</span>
+                            </div>
+
+                            <!-- Remove -->
+                            <div class="col-6 col-sm-3">
+                                <small class="text-muted text-uppercase d-block mb-1" style="font-size:10px;letter-spacing:.5px;">Remove</small>
+                                <a href="{% url 'remove_from_cart' product_id=item.product.id %}"
+                                   class="btn btn-sm rounded-circle bg-light border"
+                                   aria-label="Remove {{ item.product.name }} from cart">
                                     <i class="fa fa-times text-danger"></i>
                                 </a>
-                            </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="6" class="text-center py-5">
-                                <p class="fs-4 text-muted">Your cart is empty.</p>
-                                <a href="{% url 'shop' %}" class="btn btn-primary rounded-pill py-2 px-4 mt-3">Continue Shopping</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                {% empty %}
+                <div class="text-center py-5">
+                    <i class="fas fa-shopping-cart fa-4x text-muted mb-4 d-block" style="opacity:0.25;"></i>
+                    <p class="fs-5 text-muted mb-4">Your cart is empty.</p>
+                    <a href="{% url 'shop' %}" class="btn btn-primary rounded-pill py-2 px-5">
+                        <i class="fas fa-store me-2"></i>Continue Shopping
+                    </a>
+                </div>
+                {% endfor %}
             </div>
-            
+
+            <!-- ================================================================
+                 DESKTOP TABLE LAYOUT  (visible only on md and above)
+            ================================================================ -->
+            <div class="d-none d-md-block">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Handle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cart_items %}
+                            <tr>
+                                <th scope="row">
+                                    <div class="d-flex align-items-center">
+                                        {% if item.product.image %}
+                                            <img src="{{ item.product.image.url }}" class="img-fluid me-3 rounded-circle" style="width: 80px; height: 80px; object-fit: contain;" alt="{{ item.product.name }}">
+                                        {% else %}
+                                            <img src="{% static 'img/product-3.png' %}" class="img-fluid me-3 rounded-circle" style="width: 80px; height: 80px; object-fit: contain;" alt="{{ item.product.name }}">
+                                        {% endif %}
+                                        <p class="mb-0 py-4">{{ item.product.name }}</p>
+                                    </div>
+                                </th>
+                                <td>
+                                    <p class="mb-0 py-4">{{ item.product.category.name }}</p>
+                                </td>
+                                <td>
+                                    <p class="mb-0 py-4">KSh {{ item.product.price }}</p>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center py-4">
+                                        <div class="input-group quantity" style="width: 120px;">
+                                            <div class="input-group-btn">
+                                                <a href="{% url 'remove_one_from_cart' product_id=item.product.id %}" class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                                    <i class="fa fa-minus"></i>
+                                                </a>
+                                            </div>
+                                            <input type="text" class="form-control form-control-sm text-center border-0" value="{{ item.quantity }}" readonly style="width: 40px;">
+                                            <div class="input-group-btn">
+                                                <a href="{% url 'add_to_cart' product_id=item.product.id %}" class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="mb-0 py-4">KSh {{ item.total|floatformat:2 }}</p>
+                                </td>
+                                <td class="py-4">
+                                    <a href="{% url 'remove_from_cart' product_id=item.product.id %}" class="btn btn-md rounded-circle bg-light border">
+                                        <i class="fa fa-times text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center py-5">
+                                    <p class="fs-4 text-muted">Your cart is empty.</p>
+                                    <a href="{% url 'shop' %}" class="btn btn-primary rounded-pill py-2 px-4 mt-3">Continue Shopping</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Cart Total panel — full width on mobile, right-aligned on desktop -->
             {% if cart_items %}
             <div class="row g-4 justify-content-end mt-3 mt-lg-5">
                 <div class="col-12 col-md-7 col-lg-5 col-xl-4">
@@ -113,6 +213,7 @@
                 </div>
             </div>
             {% endif %}
+
         </div>
     </div>
     <!-- Cart Page End -->
