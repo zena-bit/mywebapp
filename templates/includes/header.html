@@ -197,7 +197,8 @@
                             <a href="{% url 'shop' %}" class="nav-item nav-link {% if request.resolver_match.url_name == 'shop' %}active{% endif %}">Shop</a>
                             <a href="{% url 'bestsellers' %}" class="nav-item nav-link {% if request.resolver_match.url_name == 'bestsellers' %}active{% endif %}">Bestsellers</a>
 
-                            <!-- Mobile Categories Dropdown -->
+                            <!-- Mobile Categories Dropdown — hidden on shop page (sidebar handles this) -->
+                            {% if request.resolver_match.url_name != 'shop' %}
                             <div class="nav-item dropdown d-block d-lg-none">
                                 <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-tags me-2"></i>Categories</a>
                                 <div class="dropdown-menu m-0 p-2 shadow-sm rounded">
@@ -208,6 +209,7 @@
                                     {% endfor %}
                                 </div>
                             </div>
+                            {% endif %}
 
                             <a href="{% url 'blog_list' %}" class="nav-item nav-link {% if request.resolver_match.url_name == 'blog_list' or request.resolver_match.url_name == 'blog_detail' %}active{% endif %}">Blog &amp; Articles</a>
                             <a href="{% url 'help_center' %}" class="nav-item nav-link {% if request.resolver_match.url_name == 'help_center' %}active{% endif %}">Help &amp; Support</a>
