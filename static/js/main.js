@@ -195,5 +195,36 @@
         }
     });
 
+
+    // ─── All Categories Dropdown Auto-Close ─────────────────────────────────
+
+    /**
+     * Close the "All Categories" dropdown menu and sync aria state.
+     */
+    function closeAllCat() {
+        var $allCat = $('#allCat');
+        if ($allCat.hasClass('show')) {
+            $allCat.removeClass('show');
+            $('[data-bs-target="#allCat"], [data-target="#allCat"]').attr('aria-expanded', 'false');
+        }
+    }
+
+    // 1. Close when a category link inside #allCat is clicked
+    $(document).on('click', '#allCat a', function () {
+        closeAllCat();
+    });
+
+    // 2. Close when user clicks or taps anywhere outside #allCat and its toggle button
+    $(document).on('click touchstart', function (e) {
+        var $allCat = $('#allCat');
+        if ($allCat.hasClass('show')) {
+            var $btn = $('[data-bs-target="#allCat"], [data-target="#allCat"]');
+            if (!$allCat.is(e.target) && $allCat.has(e.target).length === 0 &&
+                !$btn.is(e.target) && $btn.has(e.target).length === 0) {
+                closeAllCat();
+            }
+        }
+    });
+
 })(jQuery);
 
