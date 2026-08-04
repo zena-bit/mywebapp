@@ -126,6 +126,7 @@
     </style>
     <div class="container-fluid nav-bar p-0">
         <div class="row gx-0 bg-primary px-5 align-items-center">
+            {% if request.resolver_match.url_name != 'shop' %}
             <div class="col-lg-3 d-none d-lg-block">
                 <nav class="navbar navbar-light position-relative" style="width: 250px;">
                     <button class="navbar-toggler border-0 fs-4 w-100 px-0 text-start" type="button"
@@ -154,6 +155,7 @@
                     </div>
                 </nav>
             </div>
+            {% endif %}
             <div class="col-12 col-lg-9">
                 <nav class="navbar navbar-expand-lg navbar-light bg-primary ">
                     <a href="{% url 'index' %}" class="navbar-brand d-block d-lg-none">
