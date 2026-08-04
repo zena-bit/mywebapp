@@ -93,19 +93,30 @@ def product_detail(request, product_id):
 
 @login_required
 def add_review(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
     if request.method == 'POST':
-        product = get_object_or_404(Product, pk=product_id)
-        rating = request.POST.get('rating', 5)
+        try:
+            rating = int(request.POST.get('rating', 5))
+            if rating < 1 or rating > 5:
+                rating = 5
+        except (ValueError, TypeError):
+            rating = 5
+
         comment = request.POST.get('comment', '').strip()
         
         if comment:
-            Review.objects.create(
+            review, created = Review.objects.update_or_create(
                 product=product,
                 user=request.user,
-                rating=int(rating),
-                comment=comment
+                defaults={
+                    'rating': rating,
+                    'comment': comment
+                }
             )
-            messages.success(request, 'Review submitted successfully!')
+            if created:
+                messages.success(request, 'Review submitted successfully!')
+            else:
+                messages.success(request, 'Your review has been updated!')
         else:
             messages.error(request, 'Comment field cannot be empty.')
             
