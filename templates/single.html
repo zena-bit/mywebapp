@@ -45,140 +45,32 @@
                             {% endfor %}
                         </ul>
                     </div>
-                    <div class="additional-product mb-4">
-                        <h4>Select By Color</h4>
-                        <div class="additional-product-item">
-                            <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
-                            <label for="Categories-1" class="text-dark"> Gold</label>
-                        </div>
-                        <div class="additional-product-item">
-                            <input type="radio" class="me-2" id="Categories-2" name="Categories-1" value="Beverages">
-                            <label for="Categories-2" class="text-dark"> Green</label>
-                        </div>
-                        <div class="additional-product-item">
-                            <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
-                            <label for="Categories-3" class="text-dark"> White</label>
-                        </div>
-                    </div>
+
                     <div class="featured-product mb-4">
-                        <h4 class="mb-3">Featured products</h4>
+                        <h4 class="mb-3">Featured Products</h4>
+                        {% for fp in related_products %}
                         <div class="featured-product-item">
-                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                <img src="{% static 'img/product-3.png' %}" class="img-fluid rounded" alt="Image">
+                            <div class="rounded me-4 flex-shrink-0" style="width: 80px; height: 80px;">
+                                {% if fp.image %}
+                                    <img src="{{ fp.image.url }}" class="img-fluid rounded" style="width:80px;height:80px;object-fit:contain;" alt="{{ fp.name }}">
+                                {% else %}
+                                    <img src="{% static 'img/product-3.png' %}" class="img-fluid rounded" style="width:80px;height:80px;object-fit:contain;" alt="{{ fp.name }}">
+                                {% endif %}
                             </div>
                             <div>
-                                <h6 class="mb-2">SmartPhone</h6>
-                                <div class="d-flex mb-2">
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star"></i>
+                                <a href="{% url 'product_detail' product_id=fp.id %}" class="d-block h6 mb-1 text-dark">{{ fp.name }}</a>
+                                <div class="d-flex mb-1">
+                                    {% for i in "12345" %}<i class="fa fa-star{% if forloop.counter > 4 %} text-muted{% else %} text-secondary{% endif %}"></i>{% endfor %}
                                 </div>
-                                <div class="d-flex mb-2">
-                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                <div class="d-flex">
+                                    {% if fp.old_price %}<del class="me-2 small text-muted">KSh {{ fp.old_price }}</del>{% endif %}
+                                    <span class="fw-bold text-primary small">KSh {{ fp.price }}</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="featured-product-item">
-                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                <img src="{% static 'img/product-4.png' %}" class="img-fluid rounded" alt="Image">
-                            </div>
-                            <div>
-                                <h6 class="mb-2">Smart Camera</h6>
-                                <div class="d-flex mb-2">
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="d-flex mb-2">
-                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="featured-product-item">
-                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                <img src="{% static 'img/product-5.png' %}" class="img-fluid rounded" alt="Image">
-                            </div>
-                            <div>
-                                <h6 class="mb-2">Smart Camera</h6>
-                                <div class="d-flex mb-2">
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="d-flex mb-2">
-                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="featured-product-item">
-                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                <img src="{% static 'img/product-6.png' %}" class="img-fluid rounded" alt="Image">
-                            </div>
-                            <div>
-                                <h6 class="mb-2">Smart Camera</h6>
-                                <div class="d-flex mb-2">
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="d-flex mb-2">
-                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="featured-product-item">
-                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                <img src="{% static 'img/product-7.png' %}" class="img-fluid rounded" alt="Image">
-                            </div>
-                            <div>
-                                <h6 class="mb-2">Camera Lence</h6>
-                                <div class="d-flex mb-2">
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="d-flex mb-2">
-                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="featured-product-item">
-                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                <img src="{% static 'img/product-8.png' %}" class="img-fluid rounded" alt="Image">
-                            </div>
-                            <div>
-                                <h6 class="mb-2">Smart Camera</h6>
-                                <div class="d-flex mb-2">
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="d-flex mb-2">
-                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center my-4">
-                            <a href="#" class="btn btn-primary px-4 py-3 rounded-pill w-100">Vew More</a>
-                        </div>
+                        {% empty %}
+                        <p class="text-muted small">No related products found.</p>
+                        {% endfor %}
                     </div>
                     <a href="#">
                         <div class="position-relative">
@@ -308,7 +200,7 @@
                                     <p class="small">HPB12, A12, A12EX, A12-XJ, A1712, B-8315, BD1204L, BD-1204L,
                                         BPT1047, FS120B, FS120BX, FSB12.</p>
                                 </div>
-                                <div class="tab-pane active" id="nav-mission" role="tabpanel"
+                                <div class="tab-pane" id="nav-mission" role="tabpanel"
                                     aria-labelledby="nav-mission-tab">
                                     {% for review in reviews %}
                                     <div class="d-flex mb-4 align-items-start border-bottom pb-3">

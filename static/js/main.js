@@ -164,5 +164,36 @@
         }
     });
 
+
+    // ─── Mobile Menu Auto-Close ───────────────────────────────────────────────
+
+    /**
+     * Close the mobile navbar collapse and update the toggler aria state.
+     */
+    function closeMobileNav() {
+        var $collapse = $('#navbarCollapse');
+        if ($collapse.hasClass('show')) {
+            $collapse.removeClass('show');
+            // Keep aria-expanded in sync so screen-readers and Bootstrap are happy
+            $('[data-bs-target="#navbarCollapse"], [data-target="#navbarCollapse"]')
+                .attr('aria-expanded', 'false');
+        }
+    }
+
+    // 1. Close when a nav link or dropdown-item inside the mobile menu is tapped.
+    //    Dropdown-toggle links are excluded so sub-menus can still open normally.
+    $(document).on('click', '#navbarCollapse .nav-link:not(.dropdown-toggle), #navbarCollapse .dropdown-item', function () {
+        closeMobileNav();
+    });
+
+    // 2. Close when the user taps anywhere outside the navbar (overlay / content tap).
+    $(document).on('click touchstart', function (e) {
+        var $nav = $('.nav-bar');
+        // Only act when the menu is open and the tap was outside the navbar
+        if ($('#navbarCollapse').hasClass('show') && !$nav.is(e.target) && $nav.has(e.target).length === 0) {
+            closeMobileNav();
+        }
+    });
+
 })(jQuery);
 

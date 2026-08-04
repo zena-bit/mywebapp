@@ -45,6 +45,16 @@ def shop(request):
             products = products.filter(Q(name__icontains=q) | Q(description__icontains=q))
             search_query = q
 
+    # Apply sort
+    sort = request.GET.get('sort', 'default')
+    if sort == 'low-high':
+        products = products.order_by('price')
+    elif sort == 'high-low':
+        products = products.order_by('-price')
+    elif sort == 'newness':
+        products = products.order_by('-created_at')
+    # default: no ordering override
+
     context = {
         'page_title': 'Shop',
         'categories': categories,
