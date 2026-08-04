@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-bc)fnv-14=74vn9r5p^yqae=f)3lw=jb^mbep)k=!$okcz00hh')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['catherine.pythonanywhere.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['catherine.pythonanywhere.com', '127.0.0.1', 'localhost', 'testserver', '*']
 
 
 

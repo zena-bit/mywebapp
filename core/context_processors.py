@@ -24,8 +24,14 @@ def cart_processor(request):
 
 def wishlist_processor(request):
     wishlist = request.session.get('wishlist', [])
-    wishlist = [int(x) for x in wishlist]
+    valid_wishlist = []
+    if isinstance(wishlist, list):
+        for x in wishlist:
+            try:
+                valid_wishlist.append(int(x))
+            except (ValueError, TypeError):
+                continue
     return {
-        'global_wishlist_count': len(wishlist),
-        'wishlist_items': Product.objects.filter(id__in=wishlist)
+        'global_wishlist_count': len(valid_wishlist),
+        'wishlist_items': Product.objects.filter(id__in=valid_wishlist)
     }

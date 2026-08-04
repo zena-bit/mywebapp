@@ -87,9 +87,20 @@ def order_detail(request, order_code):
     return render(request, 'accounts/order_detail.html', context)
 
 
-def my_wishlist(request):
+def _get_clean_wishlist(request):
     wishlist = request.session.get('wishlist', [])
-    wishlist = [int(x) for x in wishlist]
+    valid_list = []
+    if isinstance(wishlist, list):
+        for x in wishlist:
+            try:
+                valid_list.append(int(x))
+            except (ValueError, TypeError):
+                continue
+    return valid_list
+
+
+def my_wishlist(request):
+    wishlist = _get_clean_wishlist(request)
     wishlist_items = Product.objects.filter(id__in=wishlist)
     context = {
         'page_title': 'My Wishlist',
@@ -99,28 +110,32 @@ def my_wishlist(request):
 
 
 def add_to_wishlist(request, product_id):
-    wishlist = request.session.get('wishlist', [])
-    wishlist = [int(x) for x in wishlist]
-    p_id = int(product_id)
-    if p_id not in wishlist:
-        wishlist.append(p_id)
-        request.session['wishlist'] = wishlist
-        messages.success(request, 'Product added to wishlist!')
-    else:
-        messages.info(request, 'Product is already in your wishlist.')
+    wishlist = _get_clean_wishlist(request)
+    try:
+        p_id = int(product_id)
+        if p_id not in wishlist:
+            wishlist.append(p_id)
+            request.session['wishlist'] = wishlist
+            messages.success(request, 'Product added to wishlist!')
+        else:
+            messages.info(request, 'Product is already in your wishlist.')
+    except (ValueError, TypeError):
+        pass
     
     next_url = request.META.get('HTTP_REFERER', '/shop/')
     return redirect(next_url)
 
 
 def remove_from_wishlist(request, product_id):
-    wishlist = request.session.get('wishlist', [])
-    wishlist = [int(x) for x in wishlist]
-    p_id = int(product_id)
-    if p_id in wishlist:
-        wishlist.remove(p_id)
-        request.session['wishlist'] = wishlist
-        messages.success(request, 'Product removed from wishlist.')
+    wishlist = _get_clean_wishlist(request)
+    try:
+        p_id = int(product_id)
+        if p_id in wishlist:
+            wishlist.remove(p_id)
+            request.session['wishlist'] = wishlist
+            messages.success(request, 'Product removed from wishlist.')
+    except (ValueError, TypeError):
+        pass
     
     next_url = request.META.get('HTTP_REFERER', '/accounts/wishlist/')
     return redirect(next_url)
