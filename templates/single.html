@@ -250,7 +250,11 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="border rounded p-3 bg-light">
-                                                    <textarea name="comment" class="form-control border-0 bg-light" cols="30" rows="5" placeholder="Your Review *" required></textarea>
+                                                    <textarea name="comment" id="review-comment-input" class="form-control border-0 bg-light" cols="30" rows="5" placeholder="Your Review *" required></textarea>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center mt-2 px-1">
+                                                    <small class="text-muted"><i class="fas fa-info-circle me-1"></i>Maximum 250 words allowed</small>
+                                                    <small id="word-count-badge" class="fw-semibold text-muted">0 / 250 words</small>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
@@ -282,6 +286,23 @@
                                                         });
                                                     });
                                                     star.style.color = '#ffc107';
+                                                });
+                                            }
+
+                                            var commentInput = document.getElementById('review-comment-input');
+                                            var wordCountBadge = document.getElementById('word-count-badge');
+                                            if (commentInput && wordCountBadge) {
+                                                commentInput.addEventListener('input', function() {
+                                                    var text = this.value.trim();
+                                                    var words = text ? text.split(/\s+/).length : 0;
+                                                    wordCountBadge.textContent = words + ' / 250 words';
+                                                    if (words > 250) {
+                                                        wordCountBadge.classList.remove('text-muted');
+                                                        wordCountBadge.classList.add('text-danger');
+                                                    } else {
+                                                        wordCountBadge.classList.remove('text-danger');
+                                                        wordCountBadge.classList.add('text-muted');
+                                                    }
                                                 });
                                             }
                                         });

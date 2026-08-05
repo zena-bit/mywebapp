@@ -97,29 +97,44 @@ def add_review(request, product_id):
     if request.method == 'POST':
         try:
             rating = int(request.POST.get('rating', 5))
-            if rating < 1 or rating > 5:
-                rating = 5
         except (ValueError, TypeError):
             rating = 5
 
         comment = request.POST.get('comment', '').strip()
-        
-        if comment:
-            review, created = Review.objects.update_or_create(
+
+        if not comment:
+            messages.error(request, 'Comment field cannot be empty.')
+            return redirect('product_detail', product_id=product_id)
+
+        word_count = len(comment.split())
+        if word_count > 250:
+            messages.error(request, f'Comment cannot exceed 250 words (currently {word_count} words).')
+            return redirect('product_detail', product_id=product_id)
+
+        try:
+            review, created = Review.objects.get_or_create(
                 product=product,
                 user=request.user,
-                defaults={
-                    'rating': rating,
-                    'comment': comment
-                }
+                defaults={'rating': rating, 'comment': comment}
             )
+            if not created:
+                review.rating = rating
+                review.comment = comment
+
+            review.full_clean()
+            review.save()
+
             if created:
                 messages.success(request, 'Review submitted successfully!')
             else:
                 messages.success(request, 'Your review has been updated!')
-        else:
-            messages.error(request, 'Comment field cannot be empty.')
-            
+        except ValidationError as e:
+            for field, errors in e.message_dict.items():
+                for err in errors:
+                    messages.error(request, f"{field.capitalize()}: {err}")
+        except Exception as e:
+            messages.error(request, f"Error saving review: {str(e)}")
+
     return redirect('product_detail', product_id=product_id)
 
 
