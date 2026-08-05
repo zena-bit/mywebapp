@@ -903,13 +903,14 @@
     }
     .nav-bar .navbar-collapse {
         margin-top: 10px;
+        max-height: 80vh;
+        overflow-y: auto;
     }
     .nav-bar .navbar-collapse.show {
         background-color: #ffffff !important;
         border-radius: 12px;
         padding: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        display: block !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     }
     .nav-bar .navbar-nav .nav-link {
         color: #333333 !important;

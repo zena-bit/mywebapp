@@ -155,41 +155,57 @@
 
    
 
-    // Mobile Navbar Toggler Fallback
-    $(document).on('click', '.navbar-toggler', function (e) {
-        var target = $(this).attr('data-bs-target') || $(this).attr('data-target');
-        if (target && $(target).length) {
-            e.preventDefault();
-            $(target).toggleClass('show');
-        }
+    // ─── Mobile Navbar Control ────────────────────────────────────────────────
+    
+    // Sync toggler icon (fa-bars <-> fa-times) on Bootstrap collapse events
+    $('#navbarCollapse').on('show.bs.collapse', function () {
+        $('.navbar-toggler i, .navbar-toggler span')
+            .removeClass('fa-bars')
+            .addClass('fa-times');
+        $('[data-bs-target="#navbarCollapse"]').attr('aria-expanded', 'true');
+    }).on('hide.bs.collapse', function () {
+        $('.navbar-toggler i, .navbar-toggler span')
+            .removeClass('fa-times')
+            .addClass('fa-bars');
+        $('[data-bs-target="#navbarCollapse"]').attr('aria-expanded', 'false');
     });
 
-
-    // ─── Mobile Menu Auto-Close ───────────────────────────────────────────────
-
     /**
-     * Close the mobile navbar collapse and update the toggler aria state.
+     * Safely close the mobile navbar collapse across Bootstrap 5 & jQuery
      */
     function closeMobileNav() {
         var $collapse = $('#navbarCollapse');
-        if ($collapse.hasClass('show')) {
-            $collapse.removeClass('show');
-            // Keep aria-expanded in sync so screen-readers and Bootstrap are happy
-            $('[data-bs-target="#navbarCollapse"], [data-target="#navbarCollapse"]')
-                .attr('aria-expanded', 'false');
+        if ($collapse.hasClass('show') || $collapse.hasClass('collapsing')) {
+            if (typeof bootstrap !== 'undefined' && bootstrap.Collapse) {
+                var bsCollapse = bootstrap.Collapse.getInstance($collapse[0]);
+                if (!bsCollapse) {
+                    bsCollapse = new bootstrap.Collapse($collapse[0], { toggle: false });
+                }
+                bsCollapse.hide();
+            } else {
+                $collapse.removeClass('show');
+            }
+            $('.navbar-toggler i, .navbar-toggler span')
+                .removeClass('fa-times')
+                .addClass('fa-bars');
+            $('[data-bs-target="#navbarCollapse"]').attr('aria-expanded', 'false');
         }
     }
 
-    // 1. Close when a nav link or dropdown-item inside the mobile menu is tapped.
-    //    Dropdown-toggle links are excluded so sub-menus can still open normally.
+    // 1. Close when tapping explicit mobile close button (#closeMobileMenuBtn)
+    $(document).on('click', '#closeMobileMenuBtn', function (e) {
+        e.preventDefault();
+        closeMobileNav();
+    });
+
+    // 2. Close when a nav link or dropdown-item inside the mobile menu is tapped
     $(document).on('click', '#navbarCollapse .nav-link:not(.dropdown-toggle), #navbarCollapse .dropdown-item', function () {
         closeMobileNav();
     });
 
-    // 2. Close when the user taps anywhere outside the navbar (overlay / content tap).
-    $(document).on('click touchstart', function (e) {
+    // 3. Close when tapping outside the navbar container
+    $(document).on('click', function (e) {
         var $nav = $('.nav-bar');
-        // Only act when the menu is open and the tap was outside the navbar
         if ($('#navbarCollapse').hasClass('show') && !$nav.is(e.target) && $nav.has(e.target).length === 0) {
             closeMobileNav();
         }
@@ -204,7 +220,12 @@
     function closeAllCat() {
         var $allCat = $('#allCat');
         if ($allCat.hasClass('show')) {
-            $allCat.removeClass('show');
+            if (typeof bootstrap !== 'undefined' && bootstrap.Collapse) {
+                var bsCollapse = bootstrap.Collapse.getInstance($allCat[0]) || new bootstrap.Collapse($allCat[0], { toggle: false });
+                bsCollapse.hide();
+            } else {
+                $allCat.removeClass('show');
+            }
             $('[data-bs-target="#allCat"], [data-target="#allCat"]').attr('aria-expanded', 'false');
         }
     }
@@ -214,8 +235,8 @@
         closeAllCat();
     });
 
-    // 2. Close when user clicks or taps anywhere outside #allCat and its toggle button
-    $(document).on('click touchstart', function (e) {
+    // 2. Close when user clicks anywhere outside #allCat and its toggle button
+    $(document).on('click', function (e) {
         var $allCat = $('#allCat');
         if ($allCat.hasClass('show')) {
             var $btn = $('[data-bs-target="#allCat"], [data-target="#allCat"]');
