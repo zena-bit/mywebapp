@@ -1,6 +1,21 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+
+
+def validate_max_250_words(value):
+    if value:
+        word_count = len(value.split())
+        if word_count > 250:
+            raise ValidationError(
+                _('Comment cannot exceed 250 words. Current word count: %(count)d.'),
+                params={'count': word_count},
+                code='max_words_exceeded'
+            )
 
 
 class Category(models.Model):
@@ -93,11 +108,58 @@ class Transaction(models.Model):
 
 
 class Review(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.IntegerField(default=5)  # 1 to 5 stars
-    comment = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='reviews',
+        verbose_name=_('Product')
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='reviews',
+        verbose_name=_('User')
+    )
+    rating = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)],
+        help_text=_('Rating must be between 1 (lowest) and 5 (highest).'),
+        verbose_name=_('Rating')
+    )
+    comment = models.TextField(
+        validators=[validate_max_250_words],
+        help_text=_('Review text, limited to 250 words to prevent spam.'),
+        verbose_name=_('Comment')
+    )
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created At'))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Updated At'))
+
+    class Meta:
+        verbose_name = _('Review')
+        verbose_name_plural = _('Reviews')
+        ordering = ['-created_at']
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'product'],
+                name='unique_user_product_review'
+            ),
+            models.CheckConstraint(
+                condition=models.Q(rating__gte=1, rating__lte=5),
+                name='review_rating_range_1_to_5'
+            ),
+        ]
+        indexes = [
+            models.Index(fields=['product', '-created_at'], name='review_prod_created_idx'),
+            models.Index(fields=['user', '-created_at'], name='review_user_created_idx'),
+        ]
+
+    def clean(self):
+        super().clean()
+        if self.rating is not None and not (1 <= self.rating <= 5):
+            raise ValidationError({'rating': _('Rating must be between 1 and 5.')})
+        if self.comment:
+            word_count = len(self.comment.split())
+            if word_count > 250:
+                raise ValidationError({'comment': _(f'Comment cannot exceed 250 words (currently {word_count} words).')})
 
     def __str__(self):
-        return f"{self.user.username}'s review of {self.product.name}"
+        return f"{self.user} review for {self.product.name} ({self.rating}/5)"
