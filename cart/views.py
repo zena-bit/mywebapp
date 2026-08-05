@@ -41,13 +41,31 @@ def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     cart_session = request.session.get('cart', {})
     
-    # Convert product_id to string since session keys are strings in JSON
+    # Parse quantity from POST or GET, default to 1
+    try:
+        if request.method == 'POST':
+            quantity = int(request.POST.get('quantity', 1))
+        else:
+            quantity = int(request.GET.get('quantity', 1))
+        if quantity < 1:
+            quantity = 1
+    except (ValueError, TypeError):
+        quantity = 1
+
+    # Cap quantity at available stock if stock constraint exists
+    if product.stock > 0 and quantity > product.stock:
+        quantity = product.stock
+
     pid_str = str(product_id)
-    
-    # Increment quantity or set to 1
-    cart_session[pid_str] = cart_session.get(pid_str, 0) + 1
-    
+    current_qty = cart_session.get(pid_str, 0)
+    new_qty = current_qty + quantity
+
+    if product.stock > 0 and new_qty > product.stock:
+        new_qty = product.stock
+
+    cart_session[pid_str] = new_qty
     request.session['cart'] = cart_session
+    messages.success(request, f"Added {quantity} x '{product.name}' to your cart.")
     return redirect('cart')
 
 

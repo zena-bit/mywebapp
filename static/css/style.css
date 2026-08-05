@@ -953,4 +953,32 @@
         font-size: 13px !important;
     }
 }
+
+/* Wishlist & Outline Primary Button Hover Styling Fix */
+.btn-wishlist,
+.btn-outline-primary {
+    color: #f28b00 !important;
+    border-color: #f28b00 !important;
+    background-color: transparent !important;
+    transition: all 0.3s ease-in-out !important;
+}
+
+.btn-wishlist:hover,
+.btn-wishlist:focus,
+.btn-wishlist:active,
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+    color: #ffffff !important;
+    background-color: #f28b00 !important;
+    border-color: #f28b00 !important;
+}
+
+.btn-wishlist:hover i,
+.btn-wishlist:focus i,
+.btn-outline-primary:hover i,
+.btn-outline-primary:focus i {
+    color: #ffffff !important;
+}
+
 /*** copyright end ***/
