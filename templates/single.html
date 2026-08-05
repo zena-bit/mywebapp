@@ -202,6 +202,48 @@
                                 </div>
                                 <div class="tab-pane" id="nav-mission" role="tabpanel"
                                     aria-labelledby="nav-mission-tab">
+                                    
+                                    <!-- Rating Summary & Star Distribution Section -->
+                                    <div class="bg-light rounded-3 p-4 mb-5 border">
+                                        <div class="row align-items-center">
+                                            <div class="col-md-4 text-center border-end-md mb-4 mb-md-0">
+                                                <h1 class="display-3 fw-bold text-dark mb-0">{{ avg_rating|default:"0.0" }}</h1>
+                                                <div class="d-flex justify-content-center my-2" style="color: #ffc107; font-size: 20px;">
+                                                    {% for i in "12345" %}
+                                                        {% if forloop.counter <= avg_rating_int %}
+                                                            <i class="fas fa-star"></i>
+                                                        {% else %}
+                                                            <i class="far fa-star text-muted" style="opacity: 0.3;"></i>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                                <p class="text-muted mb-0 small">Based on <strong>{{ total_reviews|default:0 }}</strong> review{{ total_reviews|pluralize }}</p>
+                                            </div>
+                                            <div class="col-md-8 px-md-4">
+                                                <h6 class="fw-bold mb-3 text-dark">Rating Distribution</h6>
+                                                {% for item in rating_distribution %}
+                                                <div class="row align-items-center mb-2">
+                                                    <div class="col-3 col-sm-2 text-nowrap small text-dark fw-semibold">
+                                                        {{ item.stars }} Star
+                                                    </div>
+                                                    <div class="col-6 col-sm-7 col-md-8">
+                                                        <div class="progress" style="height: 10px; border-radius: 5px;">
+                                                            <div class="progress-bar" role="progressbar" 
+                                                                 style="width: {{ item.percentage }}%; background-color: #f28b00;" 
+                                                                 aria-valuenow="{{ item.percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3 col-sm-3 col-md-2 text-end small text-muted">
+                                                        {{ item.percentage }}% ({{ item.count }})
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Customer Reviews List -->
+                                    <h4 class="mb-4 fw-bold">Customer Reviews</h4>
                                     {% for review in reviews %}
                                     <div class="d-flex mb-4 align-items-start border-bottom pb-3">
                                         <div class="bg-primary rounded-circle text-white d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; background-color: #f28b00 !important; flex-shrink: 0;">
@@ -221,17 +263,27 @@
                                                     {% endif %}
                                                 {% endfor %}
                                             </div>
-                                            <p class="text-muted mb-0">{{ review.comment }}</p>
+                                            <p class="text-muted mb-2">{{ review.comment }}</p>
+                                            
+                                            {% if review.images.all %}
+                                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                                {% for img_obj in review.images.all %}
+                                                <a href="{{ img_obj.image.url }}" target="_blank" class="d-inline-block">
+                                                    <img src="{{ img_obj.image.url }}" alt="Review photo" class="img-thumbnail rounded shadow-sm" style="width: 75px; height: 75px; object-fit: cover;">
+                                                </a>
+                                                {% endfor %}
+                                            </div>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     {% empty %}
                                     <div class="text-center py-4">
-                                        <p class="text-muted">No reviews yet for this product. Be the first to leave a reply!</p>
+                                        <p class="text-muted">No reviews yet for this product. Be the first to leave a review!</p>
                                     </div>
                                     {% endfor %}
 
                                     {% if request.user.is_authenticated %}
-                                    <form action="{% url 'add_review' product_id=product.id %}" method="POST" class="mt-4 border-top pt-4">
+                                    <form action="{% url 'add_review' product_id=product.id %}" method="POST" enctype="multipart/form-data" class="mt-4 border-top pt-4">
                                         {% csrf_token %}
                                         <h4 class="mb-4 fw-bold">Leave a Review</h4>
                                         <div class="row g-4">
@@ -256,6 +308,15 @@
                                                     <small class="text-muted"><i class="fas fa-info-circle me-1"></i>Maximum 250 words allowed</small>
                                                     <small id="word-count-badge" class="fw-semibold text-muted">0 / 250 words</small>
                                                 </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <label class="form-label fw-bold text-dark mb-1">
+                                                    <i class="fas fa-camera me-2 text-warning"></i>Upload Product Photos (Multiple supported)
+                                                </label>
+                                                <input type="file" name="images" id="review-images-input" class="form-control" multiple accept="image/*">
+                                                <small class="text-muted d-block mt-1">
+                                                    <i class="fas fa-robot me-1 text-primary"></i>AI Verification active: Uploaded photos must match the purchased product.
+                                                </small>
                                             </div>
                                             <div class="col-lg-12">
                                                 <button type="submit" class="btn btn-primary rounded-pill px-5 py-3 text-white fw-bold text-uppercase" style="background-color: #f28b00; border-color: #f28b00;">

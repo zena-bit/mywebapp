@@ -3,7 +3,8 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from core.models import Category, Product, Review
+from core.models import Category, Product, Review, ReviewImage
+from core.ai_verifier import verify_product_image_match
 
 
 def shop(request):
@@ -27,7 +28,6 @@ def shop(request):
     if request.method == 'POST' and 'camera_image' in request.FILES:
         camera_image = request.FILES['camera_image']
         filename = camera_image.name
-        # Clean name by removing extension and separating words
         basename = os.path.splitext(filename)[0]
         image_search_name = basename.replace('_', ' ').replace('-', ' ')
         
@@ -39,13 +39,11 @@ def shop(request):
             products = products.filter(query)
         search_query = f"Uploaded Image ({filename})"
     elif not selected_category:
-        # Check for text query search
         q = request.GET.get('q', '').strip()
         if q:
             products = products.filter(Q(name__icontains=q) | Q(description__icontains=q))
             search_query = q
 
-    # Apply sort
     sort = request.GET.get('sort', 'default')
     if sort == 'low-high':
         products = products.order_by('price')
@@ -53,7 +51,6 @@ def shop(request):
         products = products.order_by('-price')
     elif sort == 'newness':
         products = products.order_by('-created_at')
-    # default: no ordering override
 
     context = {
         'page_title': 'Shop',
@@ -71,21 +68,40 @@ def product_detail(request, product_id):
     categories = Category.objects.all()
     related_products = Product.objects.filter(category=product.category).exclude(id=product.id)[:4]
     
-    # Fetch reviews
-    reviews = product.reviews.all().order_by('-created_at')
+    # Fetch reviews with prefetch for images
+    reviews = product.reviews.prefetch_related('images').all().order_by('-created_at')
+    total_reviews = reviews.count()
     
     # Calculate average rating
-    avg_rating = 0
-    if reviews.exists():
-        avg_rating = sum(r.rating for r in reviews) / reviews.count()
+    avg_rating = 0.0
+    if total_reviews > 0:
+        avg_rating = sum(r.rating for r in reviews) / total_reviews
         
+    # Rating breakdown for 5, 4, 3, 2, 1 stars
+    rating_counts = {5: 0, 4: 0, 3: 0, 2: 0, 1: 0}
+    for r in reviews:
+        if 1 <= r.rating <= 5:
+            rating_counts[r.rating] += 1
+
+    rating_distribution = []
+    for star in [5, 4, 3, 2, 1]:
+        count = rating_counts[star]
+        pct = round((count / total_reviews * 100), 1) if total_reviews > 0 else 0.0
+        rating_distribution.append({
+            'stars': star,
+            'count': count,
+            'percentage': pct
+        })
+
     context = {
         'product': product,
         'categories': categories,
         'related_products': related_products,
         'reviews': reviews,
+        'total_reviews': total_reviews,
         'avg_rating': round(avg_rating, 1),
         'avg_rating_int': int(round(avg_rating)),
+        'rating_distribution': rating_distribution,
         'page_title': product.name,
     }
     return render(request, 'single.html', context)
@@ -111,6 +127,20 @@ def add_review(request, product_id):
             messages.error(request, f'Comment cannot exceed 250 words (currently {word_count} words).')
             return redirect('product_detail', product_id=product_id)
 
+        # Retrieve uploaded review image files
+        uploaded_images = request.FILES.getlist('images')
+
+        # Run AI Verification on uploaded images against product.image
+        if uploaded_images and product.image:
+            for img_file in uploaded_images:
+                is_match, similarity_score = verify_product_image_match(img_file, product.image)
+                if not is_match:
+                    messages.error(
+                        request,
+                        "This product does not match the item you purchased. Please upload images of the purchased product only."
+                    )
+                    return redirect('product_detail', product_id=product_id)
+
         try:
             review, created = Review.objects.get_or_create(
                 product=product,
@@ -123,6 +153,11 @@ def add_review(request, product_id):
 
             review.full_clean()
             review.save()
+
+            # Save uploaded images after verification
+            if uploaded_images:
+                for img_file in uploaded_images:
+                    ReviewImage.objects.create(review=review, image=img_file, is_verified=True)
 
             if created:
                 messages.success(request, 'Review submitted successfully!')

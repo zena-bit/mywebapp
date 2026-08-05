@@ -163,3 +163,30 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.user} review for {self.product.name} ({self.rating}/5)"
+
+
+class ReviewImage(models.Model):
+    review = models.ForeignKey(
+        Review,
+        on_delete=models.CASCADE,
+        related_name='images',
+        verbose_name=_('Review')
+    )
+    image = models.ImageField(
+        upload_to='review_images/',
+        verbose_name=_('Image')
+    )
+    is_verified = models.BooleanField(
+        default=True,
+        help_text=_('Designates if the image passed AI verification against product visual profile.'),
+        verbose_name=_('Verified')
+    )
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created At'))
+
+    class Meta:
+        verbose_name = _('Review Image')
+        verbose_name_plural = _('Review Images')
+
+    def __str__(self):
+        return f"Image for review #{self.review.id} ({self.review.product.name})"
+
