@@ -981,4 +981,20 @@
     color: #ffffff !important;
 }
 
+a:hover .btn-sm-square,
+a:hover .btn-md-square,
+.btn-sm-square:hover,
+.btn-md-square:hover {
+    background-color: #f28b00 !important;
+    border-color: #f28b00 !important;
+    color: #ffffff !important;
+}
+
+a:hover .btn-sm-square i,
+a:hover .btn-md-square i,
+.btn-sm-square:hover i,
+.btn-md-square:hover i {
+    color: #ffffff !important;
+}
+
 /*** copyright end ***/
