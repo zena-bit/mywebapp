@@ -123,17 +123,22 @@
     // Product Quantity
     $('.quantity button').on('click', function () {
         var button = $(this);
-        var oldValue = button.parent().parent().find('input').val();
+        var input = button.parent().parent().find('input');
+        var oldValue = parseFloat(input.val()) || 1;
+        var maxVal = parseFloat(input.attr('max')) || 9999;
         if (button.hasClass('btn-plus')) {
-            var newVal = parseFloat(oldValue) + 1;
+            var newVal = oldValue + 1;
+            if (newVal > maxVal) {
+                newVal = maxVal;
+            }
         } else {
-            if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
+            if (oldValue > 1) {
+                var newVal = oldValue - 1;
             } else {
-                newVal = 0;
+                newVal = 1;
             }
         }
-        button.parent().parent().find('input').val(newVal);
+        input.val(newVal);
     });
 
 
@@ -174,17 +179,13 @@
      * Safely close the mobile navbar collapse across Bootstrap 5 & jQuery
      */
     function closeMobileNav() {
-        var $collapse = $('#navbarCollapse');
-        if ($collapse.hasClass('show') || $collapse.hasClass('collapsing')) {
+        var el = document.getElementById('navbarCollapse');
+        if (el) {
             if (typeof bootstrap !== 'undefined' && bootstrap.Collapse) {
-                var bsCollapse = bootstrap.Collapse.getInstance($collapse[0]);
-                if (!bsCollapse) {
-                    bsCollapse = new bootstrap.Collapse($collapse[0], { toggle: false });
-                }
+                var bsCollapse = bootstrap.Collapse.getInstance(el) || new bootstrap.Collapse(el, { toggle: false });
                 bsCollapse.hide();
-            } else {
-                $collapse.removeClass('show');
             }
+            $(el).removeClass('show');
             $('.navbar-toggler i, .navbar-toggler span')
                 .removeClass('fa-times')
                 .addClass('fa-bars');
@@ -194,7 +195,6 @@
 
     // 1. Close when tapping explicit mobile close button (#closeMobileMenuBtn)
     $(document).on('click', '#closeMobileMenuBtn', function (e) {
-        e.preventDefault();
         closeMobileNav();
     });
 

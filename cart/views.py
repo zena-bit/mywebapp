@@ -52,9 +52,13 @@ def add_to_cart(request, product_id):
     except (ValueError, TypeError):
         quantity = 1
 
-    # Cap quantity at available stock if stock constraint exists
+    capped_by_stock = False
+    original_requested_qty = quantity
+
+    # Cap requested quantity if product has a positive stock limit
     if product.stock > 0 and quantity > product.stock:
         quantity = product.stock
+        capped_by_stock = True
 
     pid_str = str(product_id)
     current_qty = cart_session.get(pid_str, 0)
@@ -62,10 +66,20 @@ def add_to_cart(request, product_id):
 
     if product.stock > 0 and new_qty > product.stock:
         new_qty = product.stock
+        capped_by_stock = True
 
     cart_session[pid_str] = new_qty
     request.session['cart'] = cart_session
-    messages.success(request, f"Added {quantity} x '{product.name}' to your cart.")
+
+    actual_added = new_qty - current_qty
+    if capped_by_stock:
+        messages.warning(
+            request,
+            f"Only {product.stock} unit(s) of '{product.name}' available in stock. Added {actual_added} to your cart (requested {original_requested_qty})."
+        )
+    else:
+        messages.success(request, f"Added {actual_added} x '{product.name}' to your cart.")
+
     return redirect('cart')
 
 
